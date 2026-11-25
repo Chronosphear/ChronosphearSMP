@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090710">
+  <title>ChronosphearSMP | Directory</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon-sparkle.svg?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#090710; --card:rgba(24,13,39,.82); --purple:#a855f7; --pink:#ec4899; --light:#c084fc; --muted:#b9abc9; --border:rgba(192,132,252,.2); }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { min-height:100vh; background:radial-gradient(circle at 15% 15%,rgba(110,40,180,.16),transparent 35%),radial-gradient(circle at 85% 45%,rgba(220,40,150,.1),transparent 35%),linear-gradient(180deg,#090710,#10091d 55%,#090710); color:#fff; font-family:"Poppins",sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    header { position:sticky; top:0; z-index:2; background:rgba(9,7,16,.88); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); }
+    nav { max-width:1150px; min-height:76px; margin:auto; padding:0 22px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .logo { font:900 18px "Orbitron",sans-serif; letter-spacing:1px; background:linear-gradient(90deg,#fff,var(--light),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .back { color:#e9c8ff; font-size:13px; font-weight:600; }
+    main { max-width:1050px; margin:auto; padding:90px 22px; }
+    .eyebrow { color:var(--pink); font-size:11px; font-weight:700; letter-spacing:4px; text-transform:uppercase; text-align:center; }
+    h1 { margin:14px 0; text-align:center; font:800 clamp(30px,5vw,48px) "Orbitron",sans-serif; background:linear-gradient(90deg,#fff,var(--light),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .intro { max-width:650px; margin:0 auto 48px; color:var(--muted); text-align:center; font-size:14px; line-height:1.8; }
+    .directory-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .directory-card { display:block; padding:25px; border:1px solid var(--border); border-radius:15px; background:var(--card); transition:transform .3s,border-color .3s,box-shadow .3s; }
+    .directory-card:hover { transform:translateY(-4px); border-color:rgba(236,72,153,.65); box-shadow:0 10px 30px rgba(168,85,247,.14); }
+    .directory-card h2 { margin-bottom:9px; font:700 17px "Orbitron",sans-serif; color:#f4eaff; }
+    .directory-card p { color:var(--muted); font-size:12px; line-height:1.8; }
+    .arrow { display:inline-block; margin-top:16px; color:#e9b8ff; font-size:11px; font-weight:800; letter-spacing:1px; }
+    footer { padding:35px 20px; border-top:1px solid var(--border); text-align:center; color:#887994; font-size:11px; }
+    @media(max-width:650px) { .directory-grid { grid-template-columns:1fr; } main { padding-top:65px; } .logo { font-size:14px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="./index.html">CHRONOSPHEAR</a>
+      <a class="back" href="./index.html">← Back to Home</a>
+    </nav>
+  </header>
+  <main>
+    <div class="eyebrow">Find your way around</div>
+    <h1>Chronosphear Directory</h1>
+    <p class="intro">Explore the different parts of ChronosphearSMP. Choose a destination below to find the information you need.</p>
+    <div class="directory-grid">
+      <a class="directory-card" href="./index.html#home"><h2>Home</h2><p>Return to the main page and discover what ChronosphearSMP is about.</p><span class="arrow">VISIT PAGE →</span></a>
+      <a class="directory-card" href="./index.html#realms"><h2>Realms</h2><p>Explore Survival, KitPvP, Story Mode, and upcoming game modes.</p><span class="arrow">EXPLORE REALMS →</span></a>
+      <a class="directory-card" href="./index.html#server"><h2>Join the Server</h2><p>Find the server address and learn how to connect.</p><span class="arrow">SERVER DETAILS →</span></a>
+      <a class="directory-card" href="./index.html#store"><h2>Store</h2><p>See the ranks and perks planned for the Chronosphear store.</p><span class="arrow">VIEW STORE →</span></a>
+      <a class="directory-card" href="./index.html#staff"><h2>Staff Team</h2><p>Meet the owner and co-owner of ChronosphearSMP.</p><span class="arrow">MEET THE TEAM →</span></a>
+      <a class="directory-card" href="./index.html#rules"><h2>Server Rules</h2><p>Read the community rules every player is expected to follow.</p><span class="arrow">READ RULES →</span></a>
+      <a class="directory-card" href="./index.html#admin-application"><h2>Admin Application</h2><p>Apply to join the staff team by completing the website application form.</p><span class="arrow">APPLY NOW →</span></a>
+    </div>
+  </main>
+  <footer>© <span id="year"></span> ChronosphearSMP. Enter Another Realm.</footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
