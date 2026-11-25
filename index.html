@@ -5,16 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#090710">
-
   <title>ChronosphearSMP | Enter Another Realm</title>
 
-  <!-- Four-point star favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23c084fc'/%3E%3Cstop offset='100%25' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='3' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='%23090710'/%3E%3Cpath d='M50 8 L61 37 L92 50 L61 63 L50 92 L39 63 L8 50 L39 37 Z' fill='url(%23g)' filter='url(%23glow)'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg?v=2">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skinview3d@3.0.0/css/skinview3d.min.css">
 
   <style>
@@ -51,10 +48,6 @@
     a {
       color: inherit;
       text-decoration: none;
-    }
-
-    button {
-      font: inherit;
     }
 
     #starCanvas {
@@ -596,13 +589,10 @@
   </header>
 
   <main>
-    <!-- HOME -->
     <section class="hero" id="home">
       <div class="hero-content">
         <div class="eyebrow">A Minecraft experience beyond time</div>
-
         <h1>CHRONOSPHEARSMP</h1>
-
         <p>
           Enter another realm. Explore new worlds, challenge other players,
           and create your own story inside the Chronosphear.
@@ -615,7 +605,6 @@
       </div>
     </section>
 
-    <!-- REALMS -->
     <section id="realms">
       <div class="section-heading reveal">
         <span>Discover your world</span>
@@ -627,46 +616,33 @@
         <article class="panel reveal">
           <div class="realm-icon">🌍</div>
           <h3>Survival</h3>
-          <p>
-            Build your world, gather resources, explore, and survive
-            alongside the community.
-          </p>
+          <p>Build your world, gather resources, explore, and survive alongside the community.</p>
           <span class="status available">AVAILABLE</span>
         </article>
 
         <article class="panel reveal">
           <div class="realm-icon">⚔️</div>
           <h3>KitPvP</h3>
-          <p>
-            Choose your kit, enter the arena, and test your skills
-            against other players.
-          </p>
+          <p>Choose your kit, enter the arena, and test your skills against other players.</p>
           <span class="status available">AVAILABLE</span>
         </article>
 
         <article class="panel reveal">
           <div class="realm-icon">📖</div>
           <h3>Story Mode</h3>
-          <p>
-            A new adventure is being prepared. Your story inside the
-            Chronosphear is coming soon.
-          </p>
+          <p>A new adventure is being prepared. Your story inside the Chronosphear is coming soon.</p>
           <span class="status coming">COMING SOON</span>
         </article>
 
         <article class="panel reveal">
           <div class="realm-icon">🏆</div>
           <h3>Duels</h3>
-          <p>
-            Prepare for competitive one-on-one battles. The arena
-            will open in the future.
-          </p>
+          <p>Prepare for competitive one-on-one battles. The arena will open in the future.</p>
           <span class="status coming">COMING SOON</span>
         </article>
       </div>
     </section>
 
-    <!-- SERVER -->
     <section id="server">
       <div class="section-heading reveal">
         <span>Join the community</span>
@@ -676,9 +652,7 @@
 
       <div class="panel server-card reveal">
         <h3>ChronosphearSMP</h3>
-        <p>
-          Join our Minecraft server and explore the realms.
-        </p>
+        <p>Join our Minecraft server and explore the realms.</p>
 
         <div class="server-address">
           <code id="serverAddress">wss://Chronosphear.eagler.host</code>
@@ -689,7 +663,6 @@
       </div>
     </section>
 
-    <!-- STORE -->
     <section id="store">
       <div class="section-heading reveal">
         <span>Support the server</span>
@@ -721,7 +694,6 @@
       </div>
     </section>
 
-    <!-- STAFF -->
     <section id="staff">
       <div class="section-heading reveal">
         <span>Meet the team</span>
@@ -750,7 +722,6 @@
       </div>
     </section>
 
-    <!-- RULES -->
     <section id="rules">
       <div class="section-heading reveal">
         <span>Keep the community safe</span>
@@ -817,7 +788,7 @@
       });
     });
 
-    // SCROLL PROGRESS BAR
+    // SCROLL PROGRESS
     function updateProgress() {
       const scrollTop = window.scrollY;
       const scrollHeight =
@@ -834,7 +805,7 @@
     window.addEventListener("scroll", updateProgress);
     updateProgress();
 
-    // TWINKLING STAR BACKGROUND
+    // TWINKLING STARS
     const canvas = document.getElementById("starCanvas");
     const ctx = canvas.getContext("2d");
 
@@ -853,7 +824,6 @@
       canvas.height = canvasHeight * pixelRatio;
 
       ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-
       createStars();
     }
 
@@ -902,10 +872,7 @@
 
         ctx.beginPath();
         ctx.arc(star.x, adjustedY, star.size, 0, Math.PI * 2);
-
-        ctx.fillStyle =
-          `rgba(220, 190, 255, ${star.opacity})`;
-
+        ctx.fillStyle = `rgba(220, 190, 255, ${star.opacity})`;
         ctx.shadowBlur = star.size * 5;
         ctx.shadowColor = "#c084fc";
         ctx.fill();
@@ -924,7 +891,7 @@
     resizeCanvas();
     drawStars();
 
-    // REVEAL SECTIONS WHEN SCROLLING
+    // SCROLL REVEALS
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -988,7 +955,6 @@
         viewer.controls.enablePan = false;
         viewer.controls.autoRotate = true;
         viewer.controls.autoRotateSpeed = 0.7;
-
         viewer.animation = new skinview3d.IdleAnimation();
 
         container.appendChild(viewer.canvas);
