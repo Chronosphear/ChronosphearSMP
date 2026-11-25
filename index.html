@@ -84,62 +84,7 @@
       height: 100%;
       z-index: 0;
       pointer-events: none;
-      overflow: hidden;
-      isolation: isolate;
-      --star-scroll: 0px;
-    }
-
-    #star-background::before,
-    #star-background::after {
-      content: "";
-      position: absolute;
-      inset: -12%;
-      pointer-events: none;
-      background-repeat: repeat;
-      will-change: transform, opacity;
-    }
-
-    #star-background::before {
-      opacity: 0.78;
-      background-image:
-        radial-gradient(2px 2px at 24px 38px, rgba(255,255,255,.95) 45%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 118px 92px, rgba(220,180,255,.9) 45%, transparent 100%),
-        radial-gradient(2px 2px at 205px 160px, rgba(255,210,245,.9) 45%, transparent 100%),
-        radial-gradient(1px 1px at 72px 218px, rgba(255,255,255,.85) 45%, transparent 100%);
-      background-size: 260px 260px, 330px 330px, 390px 390px, 220px 220px;
-      animation: starDriftA 34s linear infinite, starPulseA 5s ease-in-out infinite alternate;
-      transform: translate3d(0, calc(var(--star-scroll) * -0.16), 0);
-    }
-
-    #star-background::after {
-      opacity: 0.58;
-      background-image:
-        radial-gradient(1px 1px at 48px 74px, rgba(205,160,255,.95) 45%, transparent 100%),
-        radial-gradient(2px 2px at 174px 42px, rgba(255,255,255,.9) 45%, transparent 100%),
-        radial-gradient(1px 1px at 232px 188px, rgba(255,190,235,.85) 45%, transparent 100%);
-      background-size: 310px 310px, 420px 420px, 280px 280px;
-      animation: starDriftB 48s linear infinite, starPulseB 7s ease-in-out infinite alternate;
-      transform: translate3d(0, calc(var(--star-scroll) * -0.32), 0);
-    }
-
-    @keyframes starDriftA {
-      from { background-position: 0 0, 0 0, 0 0, 0 0; }
-      to { background-position: 0 260px, 0 -330px, 0 390px, 0 -220px; }
-    }
-
-    @keyframes starDriftB {
-      from { background-position: 0 0, 0 0, 0 0; }
-      to { background-position: 0 -310px, 0 420px, 0 -280px; }
-    }
-
-    @keyframes starPulseA {
-      from { opacity: .38; }
-      to { opacity: .9; }
-    }
-
-    @keyframes starPulseB {
-      from { opacity: .25; }
-      to { opacity: .72; }
+      display: block;
     }
 
     body::before {
@@ -771,7 +716,7 @@
 <body>
 
   <div id="scroll-progress"></div>
-  <div id="star-background" aria-hidden="true"></div>
+  <canvas id="star-background" aria-hidden="true"></canvas>
 
   <!-- NAVIGATION -->
 
@@ -1114,14 +1059,88 @@
     document.getElementById("year").textContent =
       new Date().getFullYear();
 
-    // STARFIELD SCROLL PARALLAX
-    const starField = document.getElementById("star-background");
-    if (starField) {
-      const updateStarParallax = () => {
-        starField.style.setProperty("--star-scroll", (window.scrollY || 0) + "px");
-      };
-      window.addEventListener("scroll", updateStarParallax, { passive: true });
-      updateStarParallax();
+    // ANIMATED BACKGROUND STARS
+    // Canvas stars gently twinkle and move at different depths as the page scrolls.
+
+    const canvas = document.getElementById("star-background");
+    const ctx = canvas ? canvas.getContext("2d", { alpha: true }) : null;
+
+    let stars = [];
+    let width = 0;
+    let height = 0;
+    let scrollPosition = window.scrollY || 0;
+
+    function resizeCanvas() {
+      if (!canvas || !ctx) return;
+
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+
+      canvas.width = Math.round(width * pixelRatio);
+      canvas.height = Math.round(height * pixelRatio);
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      createStars();
+    }
+
+    function createStars() {
+      const count = Math.min(220, Math.max(90, Math.floor((width * height) / 6500)));
+      stars = [];
+
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 1.8 + 0.7,
+          opacity: Math.random() * 0.55 + 0.35,
+          speed: Math.random() * 0.008 + 0.004,
+          direction: Math.random() > 0.5 ? 1 : -1,
+          depth: Math.random() * 0.65 + 0.2
+        });
+      }
+    }
+
+    function drawStars() {
+      if (!ctx || !canvas) return;
+
+      scrollPosition = window.scrollY || window.pageYOffset || 0;
+      ctx.clearRect(0, 0, width, height);
+
+      for (const star of stars) {
+        star.opacity += star.speed * star.direction;
+
+        if (star.opacity >= 1) {
+          star.opacity = 1;
+          star.direction = -1;
+        } else if (star.opacity <= 0.12) {
+          star.opacity = 0.12;
+          star.direction = 1;
+        }
+
+        let y = (star.y - scrollPosition * star.depth) % height;
+        if (y < 0) y += height;
+
+        ctx.beginPath();
+        ctx.arc(star.x, y, star.size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(225, 190, 255, " + star.opacity + ")";
+        ctx.shadowBlur = star.size * 7;
+        ctx.shadowColor = "rgba(195, 115, 255, 0.95)";
+        ctx.fill();
+      }
+
+      ctx.shadowBlur = 0;
+      requestAnimationFrame(drawStars);
+    }
+
+    if (canvas && ctx) {
+      window.addEventListener("resize", resizeCanvas, { passive: true });
+      resizeCanvas();
+      drawStars();
+    } else {
+      console.error("Chronosphear star canvas could not start.");
     }
 
     // STAFF SKIN VIEWERS
