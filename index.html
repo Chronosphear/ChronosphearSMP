@@ -11,7 +11,6 @@
     :root {
       --bg: #090710;
       --panel: #151020;
-      --panel-light: #20152f;
       --purple: #a855f7;
       --purple-light: #d8b4fe;
       --silver: #e5e1ed;
@@ -48,6 +47,8 @@
       font: inherit;
     }
 
+    /* NAVIGATION */
+
     .navbar {
       position: sticky;
       top: 0;
@@ -79,13 +80,15 @@
     .nav-links a {
       color: var(--muted);
       font-size: 13px;
-      transition: .25s;
+      transition: color .3s, text-shadow .3s;
     }
 
     .nav-links a:hover {
       color: white;
       text-shadow: 0 0 12px var(--purple);
     }
+
+    /* HERO */
 
     .hero {
       min-height: 650px;
@@ -121,6 +124,18 @@
       text-shadow:
         0 0 15px rgba(168, 85, 247, .8),
         0 0 45px rgba(168, 85, 247, .35);
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from {
+        text-shadow: 0 0 12px rgba(168, 85, 247, .4);
+      }
+      to {
+        text-shadow:
+          0 0 20px rgba(168, 85, 247, .9),
+          0 0 55px rgba(168, 85, 247, .5);
+      }
     }
 
     .hero p {
@@ -148,7 +163,7 @@
       font-weight: bold;
       letter-spacing: 1px;
       cursor: pointer;
-      transition: .25s;
+      transition: transform .3s, box-shadow .3s;
     }
 
     .btn:hover {
@@ -161,39 +176,59 @@
       border-color: var(--border);
     }
 
+    /* FLOATING PIXEL BLOCKS */
+
     .pixel-block {
       position: absolute;
       width: 45px;
       height: 45px;
       opacity: .25;
       image-rendering: pixelated;
-      animation: blockFloat 6s ease-in-out infinite;
+      animation: blockFloat 7s ease-in-out infinite;
+      box-shadow: 0 0 25px currentColor;
     }
 
     .block-one {
       top: 20%;
       left: 12%;
       background: #9333ea;
+      color: #9333ea;
     }
 
     .block-two {
       top: 65%;
       right: 14%;
       background: #6b7280;
-      animation-delay: 1s;
+      color: #6b7280;
+      animation-delay: 1.5s;
     }
 
     .block-three {
       bottom: 12%;
       left: 25%;
       background: #4ade80;
+      color: #4ade80;
+      animation-delay: 3s;
+    }
+
+    .block-four {
+      top: 18%;
+      right: 25%;
+      background: #c084fc;
+      color: #c084fc;
       animation-delay: 2s;
     }
 
     @keyframes blockFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-22px) rotate(8deg); }
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-30px) rotate(12deg);
+      }
     }
+
+    /* GENERAL SECTIONS */
 
     section {
       padding: 85px 8%;
@@ -216,7 +251,7 @@
       font-size: 14px;
     }
 
-    /* GAMEMODES: TWO SIDE-BY-SIDE CARDS */
+    /* GAMEMODES */
 
     .gamemode-grid {
       display: grid;
@@ -237,7 +272,10 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, .25);
-      transition: transform .3s, border-color .3s, box-shadow .3s;
+      transition:
+        transform .4s ease,
+        border-color .4s ease,
+        box-shadow .4s ease;
     }
 
     .game-card::before {
@@ -251,9 +289,9 @@
     }
 
     .game-card:hover {
-      transform: translateY(-7px);
+      transform: translateY(-9px) scale(1.015);
       border-color: var(--purple);
-      box-shadow: 0 15px 40px rgba(147, 51, 234, .18);
+      box-shadow: 0 15px 40px rgba(147, 51, 234, .25);
     }
 
     .game-icon {
@@ -287,7 +325,7 @@
       letter-spacing: 2px;
     }
 
-    /* JUJUTSU KAISEN CONTENT INSIDE SURVIVAL */
+    /* JUJUTSU KAISEN INSIDE SURVIVAL */
 
     .jjk-feature {
       margin-top: 27px;
@@ -295,6 +333,12 @@
       background: rgba(8, 6, 15, .65);
       border: 1px solid rgba(168, 85, 247, .3);
       border-radius: 6px;
+      transition: background .3s, border-color .3s;
+    }
+
+    .jjk-feature:hover {
+      background: rgba(30, 15, 45, .85);
+      border-color: var(--purple);
     }
 
     .jjk-feature h4 {
@@ -325,6 +369,12 @@
       color: #e9d5ff;
       font-size: 12px;
       text-align: center;
+      transition: transform .3s, background .3s;
+    }
+
+    .jjk-item:hover {
+      transform: translateY(-4px);
+      background: rgba(147, 51, 234, .3);
     }
 
     .kitpvp-label {
@@ -386,12 +436,13 @@
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 7px;
-      transition: .3s;
+      transition: transform .4s, border-color .4s, box-shadow .4s;
     }
 
     .store-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-7px);
       border-color: var(--purple);
+      box-shadow: 0 12px 30px rgba(147, 51, 234, .15);
     }
 
     .store-card h3 {
@@ -441,6 +492,13 @@
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 7px;
+      transition: transform .4s, border-color .4s, box-shadow .4s;
+    }
+
+    .staff-card:hover {
+      transform: translateY(-7px);
+      border-color: var(--purple);
+      box-shadow: 0 12px 30px rgba(147, 51, 234, .2);
     }
 
     .staff-avatar {
@@ -451,7 +509,13 @@
       margin: 0 auto 17px;
       border-radius: 8px;
       background: linear-gradient(135deg, #6b21a8, #c084fc);
-      font-size: 30px;
+      font-size: 35px;
+      box-shadow: 0 0 22px rgba(168, 85, 247, .2);
+      transition: transform .4s;
+    }
+
+    .staff-card:hover .staff-avatar {
+      transform: scale(1.12) rotate(-5deg);
     }
 
     .staff-card h3 {
@@ -483,7 +547,15 @@
       color: #d6cde0;
       font-size: 14px;
       line-height: 1.6;
+      transition: transform .3s, background .3s;
     }
+
+    .rule:hover {
+      transform: translateX(7px);
+      background: #20152f;
+    }
+
+    /* FOOTER */
 
     footer {
       padding: 30px 20px;
@@ -495,32 +567,81 @@
       background: rgba(5, 4, 10, .8);
     }
 
-    /* SCROLL ANIMATIONS */
+    /* ENHANCED SCROLL REVEALS */
+
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+      opacity: 0;
+      filter: blur(5px);
+      transition:
+        opacity .9s cubic-bezier(.2, .7, .2, 1),
+        transform .9s cubic-bezier(.2, .7, .2, 1),
+        filter .9s ease;
+      will-change: opacity, transform;
+    }
 
     .reveal {
-      opacity: 0;
-      transform: translateY(35px);
-      transition: opacity .8s ease, transform .8s ease;
+      transform: translateY(55px);
     }
 
     .reveal-left {
-      opacity: 0;
-      transform: translateX(-35px);
-      transition: opacity .8s ease, transform .8s ease;
+      transform: translateX(-65px);
     }
 
     .reveal-right {
-      opacity: 0;
-      transform: translateX(35px);
-      transition: opacity .8s ease, transform .8s ease;
+      transform: translateX(65px);
+    }
+
+    .reveal-scale {
+      transform: scale(.88);
     }
 
     .reveal.visible,
     .reveal-left.visible,
-    .reveal-right.visible {
+    .reveal-right.visible,
+    .reveal-scale.visible {
       opacity: 1;
-      transform: translate(0, 0);
+      filter: blur(0);
+      transform: translate(0, 0) scale(1);
     }
+
+    /* STAGGERED CHILD ANIMATIONS */
+
+    .gamemode-grid .game-card:nth-child(2) {
+      transition-delay: .15s;
+    }
+
+    .store-grid .store-card:nth-child(2) {
+      transition-delay: .12s;
+    }
+
+    .store-grid .store-card:nth-child(3) {
+      transition-delay: .24s;
+    }
+
+    .staff-grid .staff-card:nth-child(2) {
+      transition-delay: .15s;
+    }
+
+    .rules-list .rule:nth-child(2) {
+      transition-delay: .08s;
+    }
+
+    .rules-list .rule:nth-child(3) {
+      transition-delay: .16s;
+    }
+
+    .rules-list .rule:nth-child(4) {
+      transition-delay: .24s;
+    }
+
+    .rules-list .rule:nth-child(5) {
+      transition-delay: .32s;
+    }
+
+    /* MOBILE */
 
     @media (max-width: 700px) {
       .navbar {
@@ -565,8 +686,10 @@
 
       .reveal,
       .reveal-left,
-      .reveal-right {
+      .reveal-right,
+      .reveal-scale {
         opacity: 1;
+        filter: none;
         transform: none;
       }
     }
@@ -587,10 +710,13 @@
     </div>
   </nav>
 
+  <!-- HERO -->
+
   <header class="hero" id="home">
     <div class="pixel-block block-one"></div>
     <div class="pixel-block block-two"></div>
     <div class="pixel-block block-three"></div>
+    <div class="pixel-block block-four"></div>
 
     <div class="hero-content reveal">
       <div class="eyebrow">A world beyond the ordinary</div>
@@ -609,6 +735,8 @@
     </div>
   </header>
 
+  <!-- GAMEMODES -->
+
   <section id="gamemodes">
     <div class="section-heading reveal">
       <h2>GAMEMODES</h2>
@@ -617,7 +745,8 @@
 
     <div class="gamemode-grid">
 
-      <!-- SURVIVAL CARD: JUJUTSU KAISEN IS INSIDE THIS CARD -->
+      <!-- SURVIVAL WITH JUJUTSU KAISEN INSIDE -->
+
       <article class="game-card reveal-left">
         <div class="game-icon">🌌</div>
 
@@ -648,7 +777,8 @@
         </div>
       </article>
 
-      <!-- KITPVP IS THE SECOND, SEPARATE GAMEMODE CARD -->
+      <!-- KITPVP -->
+
       <article class="game-card reveal-right">
         <div class="game-icon">⚔️</div>
 
@@ -667,17 +797,20 @@
     </div>
   </section>
 
+  <!-- SERVER ADDRESS -->
+
   <section id="server">
     <div class="section-heading reveal">
       <h2>JOIN THE SERVER</h2>
       <p>Your next adventure is waiting.</p>
     </div>
 
-    <div class="server-box reveal">
+    <div class="server-box reveal-scale">
       <p>SERVER ADDRESS</p>
 
       <div class="server-address">
         <code id="serverAddress">wss://Chronosphear.eagler.host</code>
+
         <button class="btn" id="copyButton" onclick="copyAddress()">
           COPY ADDRESS
         </button>
@@ -687,6 +820,8 @@
     </div>
   </section>
 
+  <!-- STORE -->
+
   <section id="store">
     <div class="section-heading reveal">
       <h2>SERVER STORE</h2>
@@ -694,6 +829,7 @@
     </div>
 
     <div class="store-grid">
+
       <div class="store-card reveal">
         <h3>SUPPORTER</h3>
         <p>Support the server and unlock future perks.</p>
@@ -711,6 +847,7 @@
         <p>Discover the highest upcoming rank.</p>
         <span class="unavailable">NOT AVAILABLE YET</span>
       </div>
+
     </div>
 
     <p class="store-note">
@@ -719,6 +856,8 @@
     </p>
   </section>
 
+  <!-- STAFF -->
+
   <section id="staff">
     <div class="section-heading reveal">
       <h2>OUR STAFF</h2>
@@ -726,19 +865,23 @@
     </div>
 
     <div class="staff-grid">
+
       <div class="staff-card reveal-left">
-        <div class="staff-avatar">👑</div>
+        <div class="staff-avatar">🪙</div>
         <h3>Kinji_Hakari</h3>
         <p>OWNER</p>
       </div>
 
       <div class="staff-card reveal-right">
-        <div class="staff-avatar">⚡</div>
+        <div class="staff-avatar">🔥</div>
         <h3>Ryomen_Sukuna</h3>
         <p>CO-OWNER</p>
       </div>
+
     </div>
   </section>
+
+  <!-- RULES -->
 
   <section id="rules">
     <div class="section-heading reveal">
@@ -754,6 +897,8 @@
       <div class="rule reveal">05. Listen to staff instructions and report problems respectfully.</div>
     </div>
   </section>
+
+  <!-- FOOTER -->
 
   <footer>
     <p>© <span id="year"></span> ChronosphearSMP. All rights reserved.</p>
@@ -799,9 +944,9 @@
       }
     }
 
-    // Minecraft-style scroll reveal animations
+    // Enhanced scroll reveal animations
     const revealElements = document.querySelectorAll(
-      ".reveal, .reveal-left, .reveal-right"
+      ".reveal, .reveal-left, .reveal-right, .reveal-scale"
     );
 
     if ("IntersectionObserver" in window) {
@@ -813,7 +958,8 @@
           }
         });
       }, {
-        threshold: 0.12
+        threshold: 0.12,
+        rootMargin: "0px 0px -45px 0px"
       });
 
       revealElements.forEach((element) => {
