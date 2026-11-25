@@ -4,39 +4,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10091d">
+  <meta name="theme-color" content="#090710">
 
   <title>ChronosphearSMP | Enter Another Realm</title>
 
-  <!-- CHRONOSPHEAR TAB ICON -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23a855f7'/%3E%3Cstop offset='1' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%23090710'/%3E%3Cpath d='M72 27A31 31 0 1 0 72 73L59 62A15 15 0 1 1 59 38Z' fill='url(%23g)'/%3E%3Cpath d='M77 17L81 29L93 33L81 37L77 49L73 37L61 33L73 29Z' fill='white'/%3E%3C/svg%3E">
+  <!-- Four-point star favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23c084fc'/%3E%3Cstop offset='100%25' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='3' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='%23090710'/%3E%3Cpath d='M50 8 L61 37 L92 50 L61 63 L50 92 L39 63 L8 50 L39 37 Z' fill='url(%23g)' filter='url(%23glow)'/%3E%3C/svg%3E">
 
-  <script src="https://unpkg.com/skinview3d@3.0.0/bundles/skinview3d.bundle.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/skinview3d@3.0.0/css/skinview3d.min.css">
 
   <style>
     :root {
       --bg: #090710;
-      --panel: #100b1d;
+      --panel: rgba(24, 15, 39, 0.82);
       --purple: #a855f7;
-      --purple-light: #c084fc;
+      --light-purple: #c084fc;
       --pink: #ec4899;
-      --text: #f5f0ff;
-      --muted: #aaa0bd;
-      --border: rgba(192, 132, 252, 0.18);
+      --text: #ffffff;
+      --muted: #b9abc9;
+      --border: rgba(192, 132, 252, 0.2);
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+    }
+
+    html {
       scroll-behavior: smooth;
+      scroll-padding-top: 90px;
     }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Inter", sans-serif;
       overflow-x: hidden;
+      min-width: 320px;
     }
 
     a {
@@ -44,66 +53,52 @@
       text-decoration: none;
     }
 
+    button {
+      font: inherit;
+    }
+
     #starCanvas {
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
-      z-index: -2;
-      pointer-events: none;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(126, 34, 206, 0.13), transparent 35%),
-        radial-gradient(circle at 80% 60%, rgba(219, 39, 119, 0.08), transparent 35%);
       pointer-events: none;
       z-index: -1;
     }
 
-    .progress-bar {
+    #scrollProgress {
       position: fixed;
       top: 0;
       left: 0;
       height: 3px;
       width: 0%;
-      background: linear-gradient(90deg, var(--purple), var(--pink));
       z-index: 1000;
+      background: linear-gradient(90deg, var(--purple), var(--pink));
+      box-shadow: 0 0 12px var(--pink);
     }
 
-    /* NAVIGATION */
-
-    header {
+    .navbar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 100;
-      background: rgba(9, 7, 16, 0.82);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav {
-      max-width: 1200px;
-      margin: auto;
-      padding: 18px 25px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      padding: 19px 7%;
+      background: rgba(9, 7, 16, 0.83);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
     }
 
     .logo {
       font-size: 21px;
       font-weight: 900;
-      letter-spacing: 1px;
-      background: linear-gradient(90deg, #c084fc, #ec4899);
-      -webkit-background-clip: text;
+      letter-spacing: -1px;
+      background: linear-gradient(90deg, #fff, var(--light-purple), var(--pink));
       background-clip: text;
+      -webkit-background-clip: text;
       color: transparent;
       white-space: nowrap;
     }
@@ -111,22 +106,29 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 25px;
-      list-style: none;
+      gap: 27px;
     }
 
     .nav-links a {
-      color: var(--muted);
+      color: #d5c9e2;
       font-size: 13px;
-      font-weight: bold;
-      transition: 0.25s;
+      font-weight: 600;
+      transition: 0.2s;
     }
 
     .nav-links a:hover {
-      color: var(--purple-light);
+      color: var(--light-purple);
     }
 
-    /* HERO */
+    .menu-button {
+      display: none;
+      background: transparent;
+      color: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
 
     .hero {
       min-height: 100vh;
@@ -136,7 +138,6 @@
       text-align: center;
       padding: 150px 20px 100px;
       position: relative;
-      overflow: visible;
     }
 
     .hero-content {
@@ -148,10 +149,11 @@
     }
 
     .eyebrow {
-      color: var(--purple-light);
-      font-size: 12px;
+      color: var(--light-purple);
+      text-transform: uppercase;
       letter-spacing: 5px;
-      font-weight: bold;
+      font-size: 12px;
+      font-weight: 800;
       margin-bottom: 25px;
     }
 
@@ -174,330 +176,294 @@
       background-clip: text;
       color: transparent;
       margin: 0 auto 25px;
+      filter: drop-shadow(0 0 22px rgba(168, 85, 247, 0.2));
     }
 
     .hero p {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.8;
       max-width: 650px;
-      margin: auto;
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 16px;
     }
 
     .hero-buttons {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
       gap: 15px;
+      flex-wrap: wrap;
       margin-top: 35px;
     }
 
     .button {
-      padding: 15px 25px;
-      border-radius: 8px;
-      font-weight: bold;
+      display: inline-block;
+      padding: 14px 25px;
+      border-radius: 9px;
       font-size: 13px;
+      font-weight: 800;
       transition: 0.25s;
       cursor: pointer;
-      border: 1px solid var(--border);
     }
 
     .button-primary {
-      background: linear-gradient(100deg, #9333ea, #db2777);
+      background: linear-gradient(100deg, var(--purple), var(--pink));
       color: white;
-      border: none;
+      box-shadow: 0 5px 25px rgba(168, 85, 247, 0.2);
     }
 
     .button-secondary {
-      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
       color: white;
+      background: rgba(255,255,255,0.04);
     }
 
     .button:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(168, 85, 247, 0.3);
     }
-
-    /* GENERAL SECTIONS */
 
     section {
-      padding: 100px 22px;
+      padding: 100px 7%;
       position: relative;
-    }
-
-    .container {
-      max-width: 1150px;
-      margin: auto;
     }
 
     .section-heading {
       text-align: center;
-      margin-bottom: 55px;
+      margin-bottom: 50px;
     }
 
     .section-heading span {
-      color: var(--purple-light);
+      color: var(--pink);
       font-size: 11px;
-      font-weight: bold;
+      font-weight: 800;
       letter-spacing: 4px;
+      text-transform: uppercase;
     }
 
     .section-heading h2 {
-      font-size: clamp(30px, 5vw, 48px);
-      margin: 15px 0;
+      font-size: clamp(30px, 5vw, 44px);
       font-weight: 900;
+      margin-top: 12px;
+      background: linear-gradient(90deg, #fff, var(--light-purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .section-heading p {
       color: var(--muted);
       font-size: 14px;
+      margin-top: 12px;
       line-height: 1.7;
     }
 
-    /* REALMS */
-
-    .mode-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .mode-card {
-      background: linear-gradient(145deg, rgba(25, 16, 42, 0.95), rgba(12, 9, 22, 0.95));
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 35px 30px;
-      transition: 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .mode-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--purple), var(--pink));
-      opacity: 0;
-      transition: 0.3s;
-    }
-
-    .mode-card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(192, 132, 252, 0.55);
-      box-shadow: 0 15px 40px rgba(126, 34, 206, 0.12);
-    }
-
-    .mode-card:hover::before {
-      opacity: 1;
-    }
-
-    .mode-icon {
-      font-size: 35px;
-      margin-bottom: 20px;
-    }
-
-    .mode-card h3 {
-      font-size: 23px;
-      margin-bottom: 12px;
-    }
-
-    .mode-card p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.8;
-      min-height: 75px;
-    }
-
-    .mode-status {
-      display: inline-block;
-      margin-top: 22px;
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      color: #c084fc;
-    }
-
-    .mode-status.soon {
-      color: #f0abfc;
-    }
-
-    /* SERVER */
-
-    .server-box {
-      max-width: 750px;
-      margin: auto;
-      text-align: center;
-      padding: 45px 30px;
-      background: linear-gradient(145deg, rgba(25, 16, 42, 0.95), rgba(12, 9, 22, 0.95));
-      border: 1px solid var(--border);
-      border-radius: 16px;
-    }
-
-    .server-box h3 {
-      font-size: 25px;
-      margin-bottom: 12px;
-    }
-
-    .server-box p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .server-address {
-      margin: 25px auto;
-      max-width: 500px;
-      padding: 17px;
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid var(--border);
-      color: #d8b4fe;
-      font-family: monospace;
-      font-size: 15px;
-      overflow-wrap: anywhere;
-    }
-
-    /* STORE */
-
-    .store-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .store-card {
-      background: linear-gradient(145deg, rgba(25, 16, 42, 0.95), rgba(12, 9, 22, 0.95));
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 35px 25px;
-      text-align: center;
-      transition: 0.3s;
-    }
-
-    .store-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(192, 132, 252, 0.55);
-    }
-
-    .store-card h3 {
-      font-size: 23px;
-      letter-spacing: 2px;
-      margin-bottom: 15px;
-      color: #d8b4fe;
-    }
-
-    .store-card p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.8;
-      min-height: 75px;
-    }
-
-    .store-status {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 10px 15px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      color: #f0abfc;
-      font-size: 11px;
-      letter-spacing: 2px;
-      font-weight: bold;
-    }
-
-    /* STAFF */
-
+    .realm-grid,
+    .store-grid,
     .staff-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 25px;
-      max-width: 850px;
+      gap: 22px;
+      max-width: 1050px;
       margin: auto;
     }
 
-    .staff-card {
-      background: linear-gradient(145deg, rgba(25, 16, 42, 0.95), rgba(12, 9, 22, 0.95));
+    .panel {
+      background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 30px 20px;
-      text-align: center;
-      transition: 0.3s;
-      overflow: hidden;
+      border-radius: 16px;
+      padding: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+      transition: 0.25s;
+      min-width: 0;
     }
 
-    .staff-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(192, 132, 252, 0.5);
+    .panel:hover {
+      transform: translateY(-5px);
+      border-color: rgba(192, 132, 252, 0.55);
+      box-shadow: 0 12px 35px rgba(168, 85, 247, 0.12);
     }
 
-    .skin-viewer {
-      display: block;
-      width: 100%;
-      max-width: 300px;
-      height: 320px;
-      margin: 0 auto 15px;
-      outline: none;
+    .realm-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--light-purple);
+      font-size: 23px;
+      margin-bottom: 20px;
     }
 
-    .skin-status {
+    .panel h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .panel p {
       color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 7px 11px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .available {
+      color: #86efac;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+    }
+
+    .coming {
+      color: #d8b4fe;
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+    }
+
+    .unavailable {
+      color: #f9a8d4;
+      background: rgba(236, 72, 153, 0.12);
+      border: 1px solid rgba(236, 72, 153, 0.25);
+    }
+
+    .server-card {
+      max-width: 750px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .server-address {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px;
+      margin-top: 25px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.25);
+      flex-wrap: wrap;
+    }
+
+    .server-address code {
+      color: var(--light-purple);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .copy-button {
+      border: 0;
+      background: linear-gradient(100deg, var(--purple), var(--pink));
+      color: white;
+      padding: 10px 16px;
+      border-radius: 7px;
+      font-weight: 800;
       font-size: 11px;
-      min-height: 16px;
+      cursor: pointer;
+    }
+
+    .copy-message {
+      min-height: 20px;
+      margin-top: 12px;
+      color: #86efac;
+      font-size: 12px;
+    }
+
+    .store-card {
+      text-align: center;
+    }
+
+    .rank-icon {
+      font-size: 35px;
+      margin-bottom: 18px;
+    }
+
+    .rank-name {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--light-purple), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       margin-bottom: 12px;
     }
 
-    .staff-card h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
+    .staff-card {
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .skin-container {
+      width: 100%;
+      height: 260px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      background: radial-gradient(ellipse, rgba(168,85,247,0.15), transparent 70%);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .skin-container canvas {
+      max-width: 100%;
+      max-height: 100%;
+      cursor: grab;
+      touch-action: pan-y;
     }
 
     .staff-role {
-      color: #c084fc;
+      color: var(--pink);
       font-size: 11px;
+      font-weight: 900;
       letter-spacing: 3px;
-      font-weight: bold;
+      margin-top: 8px;
     }
 
-    .staff-card p {
+    .staff-name {
+      font-size: 19px;
+      font-weight: 900;
+      margin-top: 8px;
+    }
+
+    .skin-note {
+      font-size: 11px;
       color: var(--muted);
-      font-size: 12px;
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
-    /* RULES */
-
-    .rules-box {
-      max-width: 850px;
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      max-width: 900px;
       margin: auto;
-      background: rgba(20, 13, 32, 0.85);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 35px;
     }
 
     .rule {
       display: flex;
-      gap: 18px;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .rule:last-child {
-      border-bottom: none;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 20px;
+      border-radius: 12px;
+      background: var(--panel);
+      border: 1px solid var(--border);
     }
 
     .rule-number {
-      color: var(--purple-light);
-      font-weight: bold;
+      color: var(--pink);
+      font-weight: 900;
       font-size: 14px;
-    }
-
-    .rule h3 {
-      font-size: 15px;
-      margin-bottom: 7px;
     }
 
     .rule p {
@@ -506,31 +472,19 @@
       line-height: 1.7;
     }
 
-    /* FOOTER */
-
     footer {
       border-top: 1px solid var(--border);
-      padding: 35px 20px;
       text-align: center;
-      background: rgba(8, 6, 14, 0.8);
-    }
-
-    footer h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-      background: linear-gradient(90deg, #c084fc, #ec4899);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    footer p {
+      padding: 35px 20px;
       color: var(--muted);
       font-size: 12px;
-      line-height: 1.8;
+      line-height: 2;
+      background: rgba(9,7,16,0.75);
     }
 
-    /* ANIMATIONS */
+    footer strong {
+      color: var(--light-purple);
+    }
 
     .reveal {
       opacity: 0;
@@ -543,564 +497,526 @@
       transform: translateY(0);
     }
 
-    /* MOBILE */
+    @media (max-width: 800px) {
+      .navbar {
+        padding: 16px 5%;
+      }
 
-    @media (max-width: 750px) {
-      nav {
-        flex-direction: column;
-        gap: 15px;
+      .menu-button {
+        display: block;
       }
 
       .nav-links {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 15px;
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        padding: 22px;
+        background: rgba(9,7,16,0.97);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 20px;
       }
 
-      .nav-links a {
-        font-size: 11px;
+      .nav-links.open {
+        display: flex;
       }
 
-      .hero {
-        padding: 175px 15px 85px;
-      }
-
-      .hero h1 {
-        font-size: clamp(24px, 8vw, 48px);
-        letter-spacing: -0.5px;
-        padding: 10px 10px 15px;
-      }
-
-      .mode-grid,
+      .realm-grid,
       .store-grid,
-      .staff-grid {
+      .staff-grid,
+      .rules-grid {
         grid-template-columns: 1fr;
       }
 
-      .mode-card p,
-      .store-card p {
-        min-height: auto;
-      }
-
       section {
-        padding: 75px 18px;
-      }
-
-      .rules-box {
-        padding: 20px;
+        padding: 80px 6%;
       }
     }
 
-    @media (max-width: 380px) {
+    @media (max-width: 450px) {
+      .logo {
+        font-size: 17px;
+      }
+
+      .hero {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
       .hero h1 {
-        font-size: 24px;
-        letter-spacing: 0;
+        font-size: clamp(25px, 9vw, 42px);
+        letter-spacing: -1.5px;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      .panel {
+        padding: 23px;
+      }
+
+      .server-address {
+        justify-content: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
-
-  <div class="progress-bar" id="progressBar"></div>
+  <div id="scrollProgress"></div>
   <canvas id="starCanvas"></canvas>
 
-  <!-- NAVIGATION -->
+  <header class="navbar">
+    <a href="#home" class="logo">CHRONOSPHEAR</a>
 
-  <header>
-    <nav>
-      <a href="#home" class="logo">CHRONOSPHEARSMP</a>
+    <button class="menu-button" id="menuButton" aria-label="Open navigation">
+      ☰
+    </button>
 
-      <ul class="nav-links">
-        <li><a href="#home">HOME</a></li>
-        <li><a href="#realms">REALMS</a></li>
-        <li><a href="#server">SERVER</a></li>
-        <li><a href="#store">STORE</a></li>
-        <li><a href="#staff">STAFF</a></li>
-        <li><a href="#rules">RULES</a></li>
-      </ul>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#realms">Realms</a>
+      <a href="#server">Server</a>
+      <a href="#store">Store</a>
+      <a href="#staff">Staff</a>
+      <a href="#rules">Rules</a>
     </nav>
   </header>
 
-  <!-- HERO -->
+  <main>
+    <!-- HOME -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">A Minecraft experience beyond time</div>
 
-  <section class="hero" id="home">
-    <div class="hero-content reveal">
-      <div class="eyebrow">A NEW WORLD AWAITS</div>
-
-      <h1>CHRONOSPHEARSMP</h1>
-
-      <p>
-        Enter another realm. Build your legacy, challenge your limits,
-        and discover everything Chronosphear has to offer.
-      </p>
-
-      <div class="hero-buttons">
-        <a href="#realms" class="button button-primary">EXPLORE REALMS</a>
-        <a href="#server" class="button button-secondary">JOIN THE SERVER</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- OUR REALMS -->
-
-  <section id="realms">
-    <div class="container">
-
-      <div class="section-heading reveal">
-        <span>DISCOVER YOUR DESTINY</span>
-        <h2>OUR REALMS</h2>
-        <p>Choose your path and enter another world.</p>
-      </div>
-
-      <div class="mode-grid">
-
-        <div class="mode-card reveal">
-          <div class="mode-icon">🌲</div>
-          <h3>Survival</h3>
-          <p>
-            Explore the world, gather resources, build your kingdom,
-            and survive alongside other players.
-          </p>
-          <span class="mode-status">✦ AVAILABLE</span>
-        </div>
-
-        <div class="mode-card reveal">
-          <div class="mode-icon">⚔️</div>
-          <h3>KitPvP</h3>
-          <p>
-            Choose your kit, master your abilities, and battle
-            other players to prove your strength.
-          </p>
-          <span class="mode-status">✦ AVAILABLE</span>
-        </div>
-
-        <div class="mode-card reveal">
-          <div class="mode-icon">📖</div>
-          <h3>Story Mode</h3>
-          <p>
-            Discover the story of Chronosphear and experience
-            an entirely new adventure.
-          </p>
-          <span class="mode-status soon">✦ COMING SOON</span>
-        </div>
-
-        <div class="mode-card reveal">
-          <div class="mode-icon">🏆</div>
-          <h3>Duels</h3>
-          <p>
-            Challenge other players in competitive one-on-one
-            battles and prove your skills.
-          </p>
-          <span class="mode-status soon">✦ COMING SOON</span>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVER -->
-
-  <section id="server">
-    <div class="container">
-
-      <div class="section-heading reveal">
-        <span>START YOUR JOURNEY</span>
-        <h2>JOIN CHRONOSPHEAR</h2>
-        <p>Your next adventure is waiting.</p>
-      </div>
-
-      <div class="server-box reveal">
-        <h3>ENTER THE SERVER</h3>
+        <h1>CHRONOSPHEARSMP</h1>
 
         <p>
-          Connect to ChronosphearSMP and begin your journey.
+          Enter another realm. Explore new worlds, challenge other players,
+          and create your own story inside the Chronosphear.
         </p>
 
-        <div class="server-address" id="serverAddress">
-          wss://Chronosphear.eagler.host
+        <div class="hero-buttons">
+          <a href="#realms" class="button button-primary">EXPLORE REALMS</a>
+          <a href="#server" class="button button-secondary">JOIN THE SERVER</a>
         </div>
+      </div>
+    </section>
 
-        <button class="button button-primary" onclick="copyServerAddress()">
-          COPY SERVER ADDRESS
-        </button>
-
-        <p id="copyStatus" style="margin-top: 15px;"></p>
+    <!-- REALMS -->
+    <section id="realms">
+      <div class="section-heading reveal">
+        <span>Discover your world</span>
+        <h2>Our Realms</h2>
+        <p>Choose your next adventure inside the Chronosphear.</p>
       </div>
 
-    </div>
-  </section>
+      <div class="realm-grid">
+        <article class="panel reveal">
+          <div class="realm-icon">🌍</div>
+          <h3>Survival</h3>
+          <p>
+            Build your world, gather resources, explore, and survive
+            alongside the community.
+          </p>
+          <span class="status available">AVAILABLE</span>
+        </article>
 
-  <!-- STORE -->
+        <article class="panel reveal">
+          <div class="realm-icon">⚔️</div>
+          <h3>KitPvP</h3>
+          <p>
+            Choose your kit, enter the arena, and test your skills
+            against other players.
+          </p>
+          <span class="status available">AVAILABLE</span>
+        </article>
 
-  <section id="store">
-    <div class="container">
+        <article class="panel reveal">
+          <div class="realm-icon">📖</div>
+          <h3>Story Mode</h3>
+          <p>
+            A new adventure is being prepared. Your story inside the
+            Chronosphear is coming soon.
+          </p>
+          <span class="status coming">COMING SOON</span>
+        </article>
 
+        <article class="panel reveal">
+          <div class="realm-icon">🏆</div>
+          <h3>Duels</h3>
+          <p>
+            Prepare for competitive one-on-one battles. The arena
+            will open in the future.
+          </p>
+          <span class="status coming">COMING SOON</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- SERVER -->
+    <section id="server">
       <div class="section-heading reveal">
-        <span>SUPPORT THE NETWORK</span>
-        <h2>THE CHRONOS STORE</h2>
-        <p>Discover upcoming ranks and server perks.</p>
+        <span>Join the community</span>
+        <h2>Enter the Chronosphear</h2>
+        <p>Connect to the server and begin your adventure.</p>
+      </div>
+
+      <div class="panel server-card reveal">
+        <h3>ChronosphearSMP</h3>
+        <p>
+          Join our Minecraft server and explore the realms.
+        </p>
+
+        <div class="server-address">
+          <code id="serverAddress">wss://Chronosphear.eagler.host</code>
+          <button class="copy-button" id="copyButton">COPY ADDRESS</button>
+        </div>
+
+        <div class="copy-message" id="copyMessage" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- STORE -->
+    <section id="store">
+      <div class="section-heading reveal">
+        <span>Support the server</span>
+        <h2>Store</h2>
+        <p>Explore the ranks planned for the Chronosphear community.</p>
       </div>
 
       <div class="store-grid">
-
-        <div class="store-card reveal">
-          <h3>SUPPORTER</h3>
+        <article class="panel store-card reveal">
+          <div class="rank-icon">✦</div>
+          <div class="rank-name">SUPPORTER</div>
           <p>Support the server and unlock future perks.</p>
-          <span class="store-status">NOT AVAILABLE YET</span>
-        </div>
+          <span class="status unavailable">NOT AVAILABLE YET</span>
+        </article>
 
-        <div class="store-card reveal">
-          <h3>CELESTIAL</h3>
+        <article class="panel store-card reveal">
+          <div class="rank-icon">✧</div>
+          <div class="rank-name">CELESTIAL</div>
           <p>Reach a higher level of server prestige.</p>
-          <span class="store-status">NOT AVAILABLE YET</span>
-        </div>
+          <span class="status unavailable">NOT AVAILABLE YET</span>
+        </article>
 
-        <div class="store-card reveal">
-          <h3>SERAPH</h3>
+        <article class="panel store-card reveal">
+          <div class="rank-icon">☄</div>
+          <div class="rank-name">SERAPH</div>
           <p>Discover the highest upcoming rank.</p>
-          <span class="store-status">NOT AVAILABLE YET</span>
-        </div>
-
+          <span class="status unavailable">NOT AVAILABLE YET</span>
+        </article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- STAFF -->
-
-  <section id="staff">
-    <div class="container">
-
+    <!-- STAFF -->
+    <section id="staff">
       <div class="section-heading reveal">
-        <span>THE PEOPLE BEHIND THE REALM</span>
-        <h2>OUR STAFF</h2>
-        <p>Meet the people building ChronosphearSMP.</p>
+        <span>Meet the team</span>
+        <h2>Our Staff</h2>
+        <p>The people behind the Chronosphear.</p>
       </div>
 
       <div class="staff-grid">
-
-        <div class="staff-card reveal">
-          <canvas
-            id="ownerSkin"
-            class="skin-viewer"
-            width="300"
-            height="320">
-          </canvas>
-
-          <div class="skin-status" id="ownerSkinStatus">
-            Loading Minecraft skin...
+        <article class="panel staff-card reveal">
+          <div class="skin-container" id="ownerSkin">
+            <p>Loading skin...</p>
           </div>
-
-          <h3>Kinji_Hakari</h3>
           <div class="staff-role">OWNER</div>
-          <p>Founder of ChronosphearSMP</p>
-        </div>
+          <div class="staff-name">Kinji_Hakari</div>
+          <p class="skin-note">Drag to rotate the skin.</p>
+        </article>
 
-        <div class="staff-card reveal">
-          <canvas
-            id="sukunaSkin"
-            class="skin-viewer"
-            width="300"
-            height="320">
-          </canvas>
-
-          <div class="skin-status" id="sukunaSkinStatus">
-            Loading Minecraft skin...
+        <article class="panel staff-card reveal">
+          <div class="skin-container" id="coOwnerSkin">
+            <p>Loading skin...</p>
           </div>
-
-          <h3>Ryomen_Sukuna</h3>
           <div class="staff-role">CO-OWNER</div>
-          <p>Co-founder of ChronosphearSMP</p>
-        </div>
-
+          <div class="staff-name">Ryomen_Sukuna</div>
+          <p class="skin-note">Drag to rotate the skin.</p>
+        </article>
       </div>
+    </section>
 
-      <p style="text-align:center; color:var(--muted); font-size:12px; margin-top:25px;">
-        Drag to rotate • Scroll to zoom
-      </p>
-
-    </div>
-  </section>
-
-  <!-- RULES -->
-
-  <section id="rules">
-    <div class="container">
-
+    <!-- RULES -->
+    <section id="rules">
       <div class="section-heading reveal">
-        <span>KEEP THE REALM SAFE</span>
-        <h2>SERVER RULES</h2>
-        <p>Respect the community and help keep Chronosphear enjoyable.</p>
+        <span>Keep the community safe</span>
+        <h2>Server Rules</h2>
+        <p>Help make the Chronosphear enjoyable for everyone.</p>
       </div>
 
-      <div class="rules-box reveal">
-
-        <div class="rule">
+      <div class="rules-grid">
+        <div class="rule reveal">
           <div class="rule-number">01</div>
-          <div>
-            <h3>Respect Everyone</h3>
-            <p>Treat all players and staff with respect. Harassment and discrimination are not allowed.</p>
-          </div>
+          <p>Respect all players and staff members.</p>
         </div>
 
-        <div class="rule">
+        <div class="rule reveal">
           <div class="rule-number">02</div>
-          <div>
-            <h3>No Cheating</h3>
-            <p>Hacked clients, unfair advantages, and exploit abuse are not permitted.</p>
-          </div>
+          <p>No cheating, hacking, or exploiting server bugs.</p>
         </div>
 
-        <div class="rule">
+        <div class="rule reveal">
           <div class="rule-number">03</div>
-          <div>
-            <h3>No Griefing</h3>
-            <p>Do not destroy, steal from, or damage another player's builds without permission.</p>
-          </div>
+          <p>Do not harass, threaten, or bully other players.</p>
         </div>
 
-        <div class="rule">
+        <div class="rule reveal">
           <div class="rule-number">04</div>
-          <div>
-            <h3>Listen to Staff</h3>
-            <p>Follow reasonable instructions from server staff and respect their decisions.</p>
-          </div>
+          <p>Do not spam or intentionally disrupt the server.</p>
         </div>
 
-        <div class="rule">
+        <div class="rule reveal">
           <div class="rule-number">05</div>
-          <div>
-            <h3>No Spam</h3>
-            <p>Avoid chat flooding, advertising, and disruptive behavior.</p>
-          </div>
+          <p>Listen to staff instructions and follow server policies.</p>
         </div>
 
-        <div class="rule">
+        <div class="rule reveal">
           <div class="rule-number">06</div>
-          <div>
-            <h3>Have Fun</h3>
-            <p>Enjoy the server, play fairly, and help make the community better.</p>
-          </div>
+          <p>Play fairly and help keep the community welcoming.</p>
         </div>
-
       </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+    </section>
+  </main>
 
   <footer>
-    <h3>CHRONOSPHEARSMP</h3>
-    <p>Enter Another Realm.</p>
-    <p style="margin-top:12px;">
-      © 2026 ChronosphearSMP. All rights reserved.
-    </p>
+    <strong>CHRONOSPHEARSMP</strong>
+    <br>
+    Enter Another Realm.
+    <br>
+    © <span id="year"></span> ChronosphearSMP. All rights reserved.
   </footer>
 
-  <!-- JAVASCRIPT -->
+  <script src="https://cdn.jsdelivr.net/npm/skinview3d@3.0.0/bundles/skinview3d.bundle.js"></script>
 
   <script>
+    // MOBILE NAVIGATION
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
 
-    /* STAR BACKGROUND */
+    menuButton.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
 
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+      });
+    });
+
+    // SCROLL PROGRESS BAR
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const scrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const progress = scrollHeight > 0
+        ? (scrollTop / scrollHeight) * 100
+        : 0;
+
+      document.getElementById("scrollProgress").style.width =
+        progress + "%";
+    }
+
+    window.addEventListener("scroll", updateProgress);
+    updateProgress();
+
+    // TWINKLING STAR BACKGROUND
     const canvas = document.getElementById("starCanvas");
     const ctx = canvas.getContext("2d");
 
     let stars = [];
-    let scrollAmount = 0;
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+    let scrollPosition = 0;
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvasWidth = window.innerWidth;
+      canvasHeight = window.innerHeight;
+
+      canvas.width = canvasWidth * pixelRatio;
+      canvas.height = canvasHeight * pixelRatio;
+
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
       createStars();
     }
 
     function createStars() {
       stars = [];
 
-      const amount = Math.min(
+      const count = Math.min(
         180,
-        Math.floor((canvas.width * canvas.height) / 7000)
+        Math.floor((canvasWidth * canvasHeight) / 6500)
       );
 
-      for (let i = 0; i < amount; i++) {
+      for (let i = 0; i < count; i++) {
         stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 1.8 + 0.3,
-          opacity: Math.random() * 0.7 + 0.2,
-          speed: Math.random() * 0.25 + 0.05,
-          phase: Math.random() * Math.PI * 2
+          x: Math.random() * canvasWidth,
+          y: Math.random() * canvasHeight,
+          size: Math.random() * 1.5 + 0.3,
+          opacity: Math.random(),
+          speed: Math.random() * 0.012 + 0.003,
+          direction: Math.random() > 0.5 ? 1 : -1,
+          parallax: Math.random() * 0.12 + 0.02
         });
       }
     }
 
     function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-      const time = performance.now() * 0.001;
+      stars.forEach(star => {
+        star.opacity += star.speed * star.direction;
 
-      for (const star of stars) {
-        const y = (star.y - scrollAmount * star.speed) % canvas.height;
-        const adjustedY = y < 0 ? y + canvas.height : y;
+        if (star.opacity >= 1) {
+          star.opacity = 1;
+          star.direction = -1;
+        }
 
-        const twinkle =
-          0.25 + 0.75 * ((Math.sin(time + star.phase) + 1) / 2);
+        if (star.opacity <= 0.12) {
+          star.opacity = 0.12;
+          star.direction = 1;
+        }
+
+        const y =
+          (star.y - scrollPosition * star.parallax) %
+          (canvasHeight + 20);
+
+        const adjustedY = y < 0 ? y + canvasHeight + 20 : y;
 
         ctx.beginPath();
         ctx.arc(star.x, adjustedY, star.size, 0, Math.PI * 2);
 
         ctx.fillStyle =
-          `rgba(220, 190, 255, ${star.opacity * twinkle})`;
+          `rgba(220, 190, 255, ${star.opacity})`;
 
+        ctx.shadowBlur = star.size * 5;
+        ctx.shadowColor = "#c084fc";
         ctx.fill();
-      }
+      });
 
+      ctx.shadowBlur = 0;
       requestAnimationFrame(drawStars);
     }
 
     window.addEventListener("resize", resizeCanvas);
 
     window.addEventListener("scroll", () => {
-      scrollAmount = window.scrollY;
+      scrollPosition = window.scrollY;
     });
 
     resizeCanvas();
     drawStars();
 
-
-    /* SCROLL PROGRESS */
-
-    window.addEventListener("scroll", () => {
-      const scrollable =
-        document.documentElement.scrollHeight - window.innerHeight;
-
-      const progress = scrollable > 0
-        ? (window.scrollY / scrollable) * 100
-        : 0;
-
-      document.getElementById("progressBar").style.width =
-        progress + "%";
+    // REVEAL SECTIONS WHEN SCROLLING
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12
     });
 
+    document.querySelectorAll(".reveal").forEach(element => {
+      observer.observe(element);
+    });
 
-    /* COPY SERVER ADDRESS */
+    // COPY SERVER ADDRESS
+    const copyButton = document.getElementById("copyButton");
+    const copyMessage = document.getElementById("copyMessage");
 
-    function copyServerAddress() {
+    copyButton.addEventListener("click", async () => {
       const address =
         document.getElementById("serverAddress").textContent.trim();
 
-      const status = document.getElementById("copyStatus");
-
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(address)
-          .then(() => {
-            status.textContent = "Server address copied!";
-          })
-          .catch(() => {
-            status.textContent = "Unable to copy automatically.";
-          });
-      } else {
-        const temporaryInput = document.createElement("textarea");
-        temporaryInput.value = address;
-        document.body.appendChild(temporaryInput);
-        temporaryInput.select();
-
-        try {
-          document.execCommand("copy");
-          status.textContent = "Server address copied!";
-        } catch (error) {
-          status.textContent = "Unable to copy automatically.";
-        }
-
-        temporaryInput.remove();
+      try {
+        await navigator.clipboard.writeText(address);
+        copyMessage.textContent = "Server address copied!";
+        copyButton.textContent = "COPIED!";
+      } catch (error) {
+        copyMessage.textContent =
+          "Copy unavailable. Please select the address manually.";
       }
-    }
 
-
-    /* REVEAL ANIMATIONS */
-
-    const revealObserver = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12
-      }
-    );
-
-    document.querySelectorAll(".reveal").forEach(element => {
-      revealObserver.observe(element);
+      setTimeout(() => {
+        copyButton.textContent = "COPY ADDRESS";
+        copyMessage.textContent = "";
+      }, 2500);
     });
 
+    // STAFF SKIN VIEWERS
+    function createSkinViewer(containerId, skinPath) {
+      const container = document.getElementById(containerId);
 
-    /* 3D MINECRAFT SKINS */
-
-    function createSkinViewer(canvasId, statusId, skinPath) {
-      const skinCanvas = document.getElementById(canvasId);
-      const status = document.getElementById(statusId);
-
-      if (!skinCanvas || !status) {
+      if (!container || !window.skinview3d) {
+        if (container) {
+          container.innerHTML = "<p>Skin viewer could not load.</p>";
+        }
         return;
       }
 
-      if (typeof skinview3d === "undefined") {
-        status.textContent = "3D skin viewer could not load.";
-        return;
-      }
+      container.innerHTML = "";
 
       try {
         const viewer = new skinview3d.SkinViewer({
-          canvas: skinCanvas,
-          width: 300,
-          height: 320
+          width: 220,
+          height: 260,
+          skin: skinPath
         });
 
         viewer.controls.enableRotate = true;
         viewer.controls.enableZoom = true;
         viewer.controls.enablePan = false;
         viewer.controls.autoRotate = true;
+        viewer.controls.autoRotateSpeed = 0.7;
 
-        viewer.zoom = 0.85;
         viewer.animation = new skinview3d.IdleAnimation();
 
-        viewer.loadSkin(skinPath)
-          .then(() => {
-            status.textContent = "Drag to rotate • Scroll to zoom";
-          })
-          .catch(error => {
-            console.error("Skin image failed to load:", skinPath, error);
-            status.textContent = "Skin image not found.";
-          });
+        container.appendChild(viewer.canvas);
 
-        return viewer;
+        viewer.loadSkin(skinPath).catch(() => {
+          container.innerHTML =
+            "<p>Skin image could not be found.</p>";
+        });
+
+        window.addEventListener("resize", () => {
+          const width = Math.min(container.clientWidth, 260);
+          viewer.setSize(width, 260);
+        });
 
       } catch (error) {
-        console.error("Skin viewer error:", error);
-        status.textContent = "Unable to display skin.";
+        container.innerHTML =
+          "<p>Skin viewer could not be created.</p>";
       }
     }
 
     window.addEventListener("load", () => {
-      createSkinViewer(
-        "ownerSkin",
-        "ownerSkinStatus",
-        "./kinji_hakari.png"
-      );
-
-      createSkinViewer(
-        "sukunaSkin",
-        "sukunaSkinStatus",
-        "./ryomen_sukuna.png"
-      );
+      createSkinViewer("ownerSkin", "./kinji_hakari.png");
+      createSkinViewer("coOwnerSkin", "./ryomen_sukuna.png");
     });
 
+    // FOOTER YEAR
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
   </script>
-
 </body>
 </html>
