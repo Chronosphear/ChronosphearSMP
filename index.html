@@ -18,11 +18,7 @@
       --border: rgba(190, 140, 255, .22);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
       scroll-behavior: smooth;
@@ -38,16 +34,8 @@
       overflow-x: hidden;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    /* NAVIGATION */
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
 
     .navbar {
       position: sticky;
@@ -88,8 +76,6 @@
       text-shadow: 0 0 12px var(--purple);
     }
 
-    /* HERO */
-
     .hero {
       min-height: 650px;
       display: flex;
@@ -121,20 +107,16 @@
       letter-spacing: clamp(1px, .5vw, 5px);
       overflow-wrap: anywhere;
       color: white;
-      text-shadow:
-        0 0 15px rgba(168, 85, 247, .8),
-        0 0 45px rgba(168, 85, 247, .35);
+      text-shadow: 0 0 15px rgba(168,85,247,.8),
+                   0 0 45px rgba(168,85,247,.35);
       animation: titleGlow 4s ease-in-out infinite alternate;
     }
 
     @keyframes titleGlow {
-      from {
-        text-shadow: 0 0 12px rgba(168, 85, 247, .4);
-      }
+      from { text-shadow: 0 0 12px rgba(168,85,247,.4); }
       to {
-        text-shadow:
-          0 0 20px rgba(168, 85, 247, .9),
-          0 0 55px rgba(168, 85, 247, .5);
+        text-shadow: 0 0 20px rgba(168,85,247,.9),
+                     0 0 55px rgba(168,85,247,.5);
       }
     }
 
@@ -168,15 +150,13 @@
 
     .btn:hover {
       transform: translateY(-4px);
-      box-shadow: 0 0 25px rgba(168, 85, 247, .5);
+      box-shadow: 0 0 25px rgba(168,85,247,.5);
     }
 
     .btn.secondary {
       background: transparent;
       border-color: var(--border);
     }
-
-    /* FLOATING PIXEL BLOCKS */
 
     .pixel-block {
       position: absolute;
@@ -188,51 +168,29 @@
       box-shadow: 0 0 25px currentColor;
     }
 
-    .block-one {
-      top: 20%;
-      left: 12%;
-      background: #9333ea;
-      color: #9333ea;
-    }
-
+    .block-one { top: 20%; left: 12%; background: #9333ea; color: #9333ea; }
     .block-two {
-      top: 65%;
-      right: 14%;
-      background: #6b7280;
-      color: #6b7280;
+      top: 65%; right: 14%;
+      background: #6b7280; color: #6b7280;
       animation-delay: 1.5s;
     }
-
     .block-three {
-      bottom: 12%;
-      left: 25%;
-      background: #4ade80;
-      color: #4ade80;
+      bottom: 12%; left: 25%;
+      background: #4ade80; color: #4ade80;
       animation-delay: 3s;
     }
-
     .block-four {
-      top: 18%;
-      right: 25%;
-      background: #c084fc;
-      color: #c084fc;
+      top: 18%; right: 25%;
+      background: #c084fc; color: #c084fc;
       animation-delay: 2s;
     }
 
     @keyframes blockFloat {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-30px) rotate(12deg);
-      }
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(12deg); }
     }
 
-    /* GENERAL SECTIONS */
-
-    section {
-      padding: 85px 8%;
-    }
+    section { padding: 85px 8%; }
 
     .section-heading {
       text-align: center;
@@ -251,8 +209,6 @@
       font-size: 14px;
     }
 
-    /* GAMEMODES */
-
     .gamemode-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -267,15 +223,11 @@
       min-width: 0;
       overflow: hidden;
       padding: 30px;
-      background:
-        linear-gradient(145deg, rgba(45, 25, 68, .9), rgba(16, 12, 25, .98));
+      background: linear-gradient(145deg, rgba(45,25,68,.9), rgba(16,12,25,.98));
       border: 1px solid var(--border);
       border-radius: 8px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, .25);
-      transition:
-        transform .4s ease,
-        border-color .4s ease,
-        box-shadow .4s ease;
+      box-shadow: 0 12px 35px rgba(0,0,0,.25);
+      transition: transform .4s ease, border-color .4s ease, box-shadow .4s ease;
     }
 
     .game-card::before {
@@ -291,13 +243,10 @@
     .game-card:hover {
       transform: translateY(-9px) scale(1.015);
       border-color: var(--purple);
-      box-shadow: 0 15px 40px rgba(147, 51, 234, .25);
+      box-shadow: 0 15px 40px rgba(147,51,234,.25);
     }
 
-    .game-icon {
-      font-size: 38px;
-      margin: 12px 0 18px;
-    }
+    .game-icon { font-size: 38px; margin: 12px 0 18px; }
 
     .game-card h3 {
       color: white;
@@ -316,8 +265,8 @@
       display: inline-block;
       margin-bottom: 12px;
       color: var(--purple-light);
-      border: 1px solid rgba(216, 180, 254, .35);
-      background: rgba(147, 51, 234, .12);
+      border: 1px solid rgba(216,180,254,.35);
+      background: rgba(147,51,234,.12);
       padding: 6px 10px;
       border-radius: 4px;
       font-size: 10px;
@@ -325,19 +274,17 @@
       letter-spacing: 2px;
     }
 
-    /* JUJUTSU KAISEN INSIDE SURVIVAL */
-
     .jjk-feature {
       margin-top: 27px;
       padding: 20px;
-      background: rgba(8, 6, 15, .65);
-      border: 1px solid rgba(168, 85, 247, .3);
+      background: rgba(8,6,15,.65);
+      border: 1px solid rgba(168,85,247,.3);
       border-radius: 6px;
       transition: background .3s, border-color .3s;
     }
 
     .jjk-feature:hover {
-      background: rgba(30, 15, 45, .85);
+      background: rgba(30,15,45,.85);
       border-color: var(--purple);
     }
 
@@ -357,14 +304,14 @@
 
     .jjk-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 9px;
     }
 
     .jjk-item {
       padding: 10px;
-      background: rgba(147, 51, 234, .12);
-      border: 1px solid rgba(168, 85, 247, .2);
+      background: rgba(147,51,234,.12);
+      border: 1px solid rgba(168,85,247,.2);
       border-radius: 4px;
       color: #e9d5ff;
       font-size: 12px;
@@ -374,14 +321,14 @@
 
     .jjk-item:hover {
       transform: translateY(-4px);
-      background: rgba(147, 51, 234, .3);
+      background: rgba(147,51,234,.3);
     }
 
     .kitpvp-label {
       display: inline-block;
       margin-top: 18px;
       color: #e9d5ff;
-      background: rgba(147, 51, 234, .18);
+      background: rgba(147,51,234,.18);
       border: 1px solid var(--border);
       padding: 8px 12px;
       border-radius: 4px;
@@ -389,8 +336,6 @@
       font-weight: bold;
       letter-spacing: 2px;
     }
-
-    /* SERVER ADDRESS */
 
     .server-box {
       max-width: 750px;
@@ -422,39 +367,93 @@
 
     /* STORE */
 
+    .store-category {
+      max-width: 1150px;
+      margin: 0 auto 65px;
+    }
+
+    .store-category-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .store-category-heading h3 {
+      color: var(--purple-light);
+      font-size: 23px;
+      letter-spacing: 2px;
+    }
+
+    .store-category-heading span {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
     .store-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 20px;
-      max-width: 1050px;
-      margin: 0 auto;
     }
 
     .store-card {
+      position: relative;
+      overflow: hidden;
       text-align: center;
-      padding: 28px 18px;
-      background: var(--panel);
+      padding: 28px 20px;
+      background: linear-gradient(150deg, #1c142a, #110d1a);
       border: 1px solid var(--border);
       border-radius: 7px;
       transition: transform .4s, border-color .4s, box-shadow .4s;
     }
 
+    .store-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #6b21a8, #d8b4fe, #6b21a8);
+    }
+
     .store-card:hover {
       transform: translateY(-7px);
       border-color: var(--purple);
-      box-shadow: 0 12px 30px rgba(147, 51, 234, .15);
+      box-shadow: 0 12px 30px rgba(147,51,234,.2);
     }
 
-    .store-card h3 {
+    .store-icon {
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    .store-card h4 {
       color: var(--purple-light);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      font-size: 19px;
       letter-spacing: 1px;
+    }
+
+    .store-price {
+      color: white;
+      font-size: 25px;
+      font-weight: 900;
+      margin: 15px 0;
+      text-shadow: 0 0 15px rgba(168,85,247,.45);
     }
 
     .store-card p {
       color: var(--muted);
       font-size: 13px;
-      margin-bottom: 20px;
+      line-height: 1.6;
+      min-height: 42px;
+      margin-bottom: 17px;
     }
 
     .unavailable {
@@ -473,14 +472,13 @@
       text-align: center;
       color: var(--muted);
       font-size: 12px;
+      line-height: 1.7;
       margin-top: 25px;
     }
 
-    /* STAFF */
-
     .staff-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 20px;
       max-width: 750px;
       margin: 0 auto;
@@ -498,7 +496,7 @@
     .staff-card:hover {
       transform: translateY(-7px);
       border-color: var(--purple);
-      box-shadow: 0 12px 30px rgba(147, 51, 234, .2);
+      box-shadow: 0 12px 30px rgba(147,51,234,.2);
     }
 
     .staff-avatar {
@@ -510,7 +508,7 @@
       border-radius: 8px;
       background: linear-gradient(135deg, #6b21a8, #c084fc);
       font-size: 35px;
-      box-shadow: 0 0 22px rgba(168, 85, 247, .2);
+      box-shadow: 0 0 22px rgba(168,85,247,.2);
       transition: transform .4s;
     }
 
@@ -518,18 +516,8 @@
       transform: scale(1.12) rotate(-5deg);
     }
 
-    .staff-card h3 {
-      color: white;
-      margin-bottom: 8px;
-    }
-
-    .staff-card p {
-      color: var(--purple-light);
-      font-size: 12px;
-      letter-spacing: 2px;
-    }
-
-    /* RULES */
+    .staff-card h3 { color: white; margin-bottom: 8px; }
+    .staff-card p { color: var(--purple-light); font-size: 12px; letter-spacing: 2px; }
 
     .rules-list {
       max-width: 800px;
@@ -555,8 +543,6 @@
       background: #20152f;
     }
 
-    /* FOOTER */
-
     footer {
       padding: 30px 20px;
       text-align: center;
@@ -564,130 +550,61 @@
       color: var(--muted);
       font-size: 12px;
       line-height: 1.8;
-      background: rgba(5, 4, 10, .8);
+      background: rgba(5,4,10,.8);
     }
 
-    /* ENHANCED SCROLL REVEALS */
-
-    .reveal,
-    .reveal-left,
-    .reveal-right,
-    .reveal-scale {
+    .reveal, .reveal-left, .reveal-right, .reveal-scale {
       opacity: 0;
       filter: blur(5px);
-      transition:
-        opacity .9s cubic-bezier(.2, .7, .2, 1),
-        transform .9s cubic-bezier(.2, .7, .2, 1),
-        filter .9s ease;
+      transition: opacity .9s cubic-bezier(.2,.7,.2,1),
+                  transform .9s cubic-bezier(.2,.7,.2,1),
+                  filter .9s ease;
       will-change: opacity, transform;
     }
 
-    .reveal {
-      transform: translateY(55px);
-    }
+    .reveal { transform: translateY(55px); }
+    .reveal-left { transform: translateX(-65px); }
+    .reveal-right { transform: translateX(65px); }
+    .reveal-scale { transform: scale(.88); }
 
-    .reveal-left {
-      transform: translateX(-65px);
-    }
-
-    .reveal-right {
-      transform: translateX(65px);
-    }
-
-    .reveal-scale {
-      transform: scale(.88);
-    }
-
-    .reveal.visible,
-    .reveal-left.visible,
-    .reveal-right.visible,
-    .reveal-scale.visible {
+    .reveal.visible, .reveal-left.visible,
+    .reveal-right.visible, .reveal-scale.visible {
       opacity: 1;
       filter: blur(0);
-      transform: translate(0, 0) scale(1);
+      transform: translate(0,0) scale(1);
     }
 
-    /* STAGGERED CHILD ANIMATIONS */
+    .gamemode-grid .game-card:nth-child(2) { transition-delay: .15s; }
 
-    .gamemode-grid .game-card:nth-child(2) {
-      transition-delay: .15s;
+    .store-grid .store-card:nth-child(2) { transition-delay: .12s; }
+    .store-grid .store-card:nth-child(3) { transition-delay: .24s; }
+
+    .staff-grid .staff-card:nth-child(2) { transition-delay: .15s; }
+
+    .rules-list .rule:nth-child(2) { transition-delay: .08s; }
+    .rules-list .rule:nth-child(3) { transition-delay: .16s; }
+    .rules-list .rule:nth-child(4) { transition-delay: .24s; }
+    .rules-list .rule:nth-child(5) { transition-delay: .32s; }
+
+    @media (max-width: 900px) {
+      .store-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
     }
-
-    .store-grid .store-card:nth-child(2) {
-      transition-delay: .12s;
-    }
-
-    .store-grid .store-card:nth-child(3) {
-      transition-delay: .24s;
-    }
-
-    .staff-grid .staff-card:nth-child(2) {
-      transition-delay: .15s;
-    }
-
-    .rules-list .rule:nth-child(2) {
-      transition-delay: .08s;
-    }
-
-    .rules-list .rule:nth-child(3) {
-      transition-delay: .16s;
-    }
-
-    .rules-list .rule:nth-child(4) {
-      transition-delay: .24s;
-    }
-
-    .rules-list .rule:nth-child(5) {
-      transition-delay: .32s;
-    }
-
-    /* MOBILE */
 
     @media (max-width: 700px) {
-      .navbar {
-        padding: 16px 5%;
-        flex-direction: column;
-      }
-
-      .nav-links {
-        justify-content: center;
-        gap: 15px;
-      }
-
-      section {
-        padding: 65px 5%;
-      }
-
-      .gamemode-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .store-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .staff-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: 570px;
-      }
+      .navbar { padding: 16px 5%; flex-direction: column; }
+      .nav-links { justify-content: center; gap: 15px; }
+      section { padding: 65px 5%; }
+      .gamemode-grid, .store-grid, .staff-grid { grid-template-columns: 1fr; }
+      .hero { min-height: 570px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         scroll-behavior: auto !important;
         animation-duration: .01ms !important;
         transition-duration: .01ms !important;
       }
-
-      .reveal,
-      .reveal-left,
-      .reveal-right,
-      .reveal-scale {
+      .reveal, .reveal-left, .reveal-right, .reveal-scale {
         opacity: 1;
         filter: none;
         transform: none;
@@ -700,7 +617,6 @@
 
   <nav class="navbar">
     <a href="#home" class="logo">ChronosphearSMP</a>
-
     <div class="nav-links">
       <a href="#home">Home</a>
       <a href="#gamemodes">Gamemodes</a>
@@ -710,8 +626,6 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-
   <header class="hero" id="home">
     <div class="pixel-block block-one"></div>
     <div class="pixel-block block-two"></div>
@@ -720,22 +634,14 @@
 
     <div class="hero-content reveal">
       <div class="eyebrow">A world beyond the ordinary</div>
-
       <h1>ChronosphearSMP</h1>
-
-      <p>
-        Explore new realms. Build your legacy.
-        Write your story.
-      </p>
-
+      <p>Explore new realms. Build your legacy. Write your story.</p>
       <div class="buttons">
         <a href="#gamemodes" class="btn">EXPLORE GAMEMODES</a>
         <a href="#store" class="btn secondary">VIEW STORE</a>
       </div>
     </div>
   </header>
-
-  <!-- GAMEMODES -->
 
   <section id="gamemodes">
     <div class="section-heading reveal">
@@ -744,30 +650,15 @@
     </div>
 
     <div class="gamemode-grid">
-
-      <!-- SURVIVAL WITH JUJUTSU KAISEN INSIDE -->
-
       <article class="game-card reveal-left">
         <div class="game-icon">🌌</div>
-
         <span class="game-tag">MAIN GAMEMODE</span>
-
         <h3>SURVIVAL</h3>
-
-        <p>
-          Explore the world, gather resources, build your base,
-          and create your own adventure.
-        </p>
+        <p>Explore the world, gather resources, build your base, and create your own adventure.</p>
 
         <div class="jjk-feature">
           <h4>JUJUTSU KAISEN FEATURED</h4>
-
-          <p>
-            Enter the world of Jujutsu Kaisen inside Survival.
-            Discover special content inspired by the series
-            while continuing your survival adventure.
-          </p>
-
+          <p>Enter the world of Jujutsu Kaisen inside Survival. Discover special content inspired by the series while continuing your survival adventure.</p>
           <div class="jjk-list">
             <div class="jjk-item">Cursed Techniques</div>
             <div class="jjk-item">Special Abilities</div>
@@ -777,27 +668,15 @@
         </div>
       </article>
 
-      <!-- KITPVP -->
-
       <article class="game-card reveal-right">
         <div class="game-icon">⚔️</div>
-
         <span class="game-tag">PLAYER COMBAT</span>
-
         <h3>KITPVP</h3>
-
-        <p>
-          Choose your kit, enter the arena, and battle
-          against other players.
-        </p>
-
+        <p>Choose your kit, enter the arena, and battle against other players.</p>
         <span class="kitpvp-label">PLAYERS FFA</span>
       </article>
-
     </div>
   </section>
-
-  <!-- SERVER ADDRESS -->
 
   <section id="server">
     <div class="section-heading reveal">
@@ -807,16 +686,11 @@
 
     <div class="server-box reveal-scale">
       <p>SERVER ADDRESS</p>
-
       <div class="server-address">
         <code id="serverAddress">wss://Chronosphear.eagler.host</code>
-
-        <button class="btn" id="copyButton" onclick="copyAddress()">
-          COPY ADDRESS
-        </button>
+        <button class="btn" id="copyButton" onclick="copyAddress()">COPY ADDRESS</button>
       </div>
-
-      <p id="copyMessage" style="margin-top: 15px; color: #d8b4fe;"></p>
+      <p id="copyMessage" style="margin-top:15px;color:#d8b4fe;"></p>
     </div>
   </section>
 
@@ -824,39 +698,110 @@
 
   <section id="store">
     <div class="section-heading reveal">
-      <h2>SERVER STORE</h2>
-      <p>Explore the upcoming Chronosphear ranks.</p>
+      <h2>CHRONOSPHear STORE</h2>
+      <p>Unlock your place in the Chronosphear universe.</p>
     </div>
 
-    <div class="store-grid">
+    <!-- RANKS -->
 
-      <div class="store-card reveal">
-        <h3>SUPPORTER</h3>
-        <p>Support the server and unlock future perks.</p>
-        <span class="unavailable">NOT AVAILABLE YET</span>
+    <div class="store-category">
+      <div class="store-category-heading reveal">
+        <h3>✦ SERVER RANKS</h3>
+        <span>PERMANENT RANK UPGRADES</span>
       </div>
 
-      <div class="store-card reveal">
-        <h3>CELESTIAL</h3>
-        <p>Reach a higher level of server prestige.</p>
-        <span class="unavailable">NOT AVAILABLE YET</span>
+      <div class="store-grid">
+        <article class="store-card reveal">
+          <div class="store-icon">✨</div>
+          <h4>ASTRAL</h4>
+          <div class="store-price">$4.99</div>
+          <p>Begin your journey with a special prefix, colored chat, and extra homes.</p>
+          <span class="unavailable">COMING SOON</span>
+        </article>
+
+        <article class="store-card reveal">
+          <div class="store-icon">💎</div>
+          <h4>CELESTIAL</h4>
+          <div class="store-price">$9.99</div>
+          <p>Rise higher with extra homes, exclusive cosmetics, and Astral benefits.</p>
+          <span class="unavailable">COMING SOON</span>
+        </article>
+
+        <article class="store-card reveal">
+          <div class="store-icon">👑</div>
+          <h4>SERAPH</h4>
+          <div class="store-price">$19.99</div>
+          <p>Unlock elite cosmetics, unique effects, and Celestial benefits.</p>
+          <span class="unavailable">COMING SOON</span>
+        </article>
+
+        <article class="store-card reveal">
+          <div class="store-icon">🌌</div>
+          <h4>CHRONOS</h4>
+          <div class="store-price">$29.99</div>
+          <p>Reach the legendary rank with the rarest prefix and exclusive cosmetics.</p>
+          <span class="unavailable">COMING SOON</span>
+        </article>
+      </div>
+    </div>
+
+    <!-- KITPVP KITS -->
+
+    <div class="store-category">
+      <div class="store-category-heading reveal">
+        <h3>⚔ KITPVP KITS</h3>
+        <span>UNLOCK KITS FOR KITPVP</span>
       </div>
 
-      <div class="store-card reveal">
-        <h3>SERAPH</h3>
-        <p>Discover the highest upcoming rank.</p>
-        <span class="unavailable">NOT AVAILABLE YET</span>
-      </div>
+      <div class="store-grid">
+        <article class="store-card reveal">
+          <div class="store-icon">⚔️</div>
+          <h4>WARRIOR</h4>
+          <div class="store-price">$2.99</div>
+          <p>Balanced melee combat with iron equipment and a sword.</p>
+          <span class="unavailable">COMING SOON</span>
+        </article>
 
+        <article class="store-card reveal">
+          <div class="store-icon">🛡️</div>
+          <h4>TANK</h4>
+          <div class="store-price">$3.99</div>
+          <p>Heavy armor built to help you stand strong in the arena.</p>
+          <span class="unavailable">COMING SOON</span>
+        </article>
+
+        <article class="store-card reveal">
+          <div class="store-icon">🏹</div>
+          <h4>ARCHER</h4>
+          <div class="store-price">$2.99</div>
+          <p>Fight from a distance with a bow, arrows, and a stone sword.</p>
+          <span class="unavailable">COMING SOON</span>
+        </article>
+
+        <article class="store-card reveal">
+          <div class="store-icon">💜</div>
+          <h4>VIP</h4>
+          <div class="store-price">$5.99</div>
+          <p>Diamond sword, golden armor, and golden apples.</p>
+          <span class="unavailable">COMING SOON</span>
+        </article>
+
+        <article class="store-card reveal">
+          <div class="store-icon">🔥</div>
+          <h4>SPECIAL</h4>
+          <div class="store-price">$9.99</div>
+          <p>Full diamond equipment, a bow, arrows, and golden apples.</p>
+          <span class="unavailable">COMING SOON</span>
+        </article>
+      </div>
     </div>
 
     <p class="store-note">
-      Store purchases are not available yet. Ask a parent or guardian
-      before making any online purchases.
+      Prices are proposed and purchases are not active yet.
+      Kit access and rank perks must be configured on the server before sales begin.
+      Ask a parent or guardian before making online purchases.
     </p>
   </section>
-
-  <!-- STAFF -->
 
   <section id="staff">
     <div class="section-heading reveal">
@@ -865,7 +810,6 @@
     </div>
 
     <div class="staff-grid">
-
       <div class="staff-card reveal-left">
         <div class="staff-avatar">🪙</div>
         <h3>Kinji_Hakari</h3>
@@ -877,11 +821,8 @@
         <h3>Ryomen_Sukuna</h3>
         <p>CO-OWNER</p>
       </div>
-
     </div>
   </section>
-
-  <!-- RULES -->
 
   <section id="rules">
     <div class="section-heading reveal">
@@ -898,28 +839,17 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-
   <footer>
     <p>© <span id="year"></span> ChronosphearSMP. All rights reserved.</p>
-    <p>
-      ChronosphearSMP is not affiliated with Mojang or Microsoft.
-      Minecraft is a trademark of Mojang Studios.
-    </p>
+    <p>ChronosphearSMP is not affiliated with Mojang or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
   </footer>
 
   <script>
-    // Automatic copyright year
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Copy server address
     function copyAddress() {
-      const address =
-        document.getElementById("serverAddress").textContent;
-
-      const message =
-        document.getElementById("copyMessage");
+      const address = document.getElementById("serverAddress").textContent;
+      const message = document.getElementById("copyMessage");
 
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(address).then(() => {
@@ -944,7 +874,6 @@
       }
     }
 
-    // Enhanced scroll reveal animations
     const revealElements = document.querySelectorAll(
       ".reveal, .reveal-left, .reveal-right, .reveal-scale"
     );
@@ -962,13 +891,9 @@
         rootMargin: "0px 0px -45px 0px"
       });
 
-      revealElements.forEach((element) => {
-        observer.observe(element);
-      });
+      revealElements.forEach((element) => observer.observe(element));
     } else {
-      revealElements.forEach((element) => {
-        element.classList.add("visible");
-      });
+      revealElements.forEach((element) => element.classList.add("visible"));
     }
   </script>
 
