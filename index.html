@@ -18,6 +18,8 @@
       --silver: #e8e2f2;
       --muted: #aaa0ba;
       --line: rgba(207, 183, 255, .19);
+      --grass: #668d43;
+      --dirt: #76502f;
     }
 
     * {
@@ -31,8 +33,10 @@
     body {
       margin: 0;
       color: var(--silver);
-      background: radial-gradient(ellipse at 50% -15%, #382052 0%, #130d20 36%, var(--bg) 72%);
+      background:
+        radial-gradient(ellipse at 50% -15%, #382052 0%, #130d20 36%, var(--bg) 72%);
       font-family: Georgia, "Times New Roman", serif;
+      overflow-x: hidden;
     }
 
     button, a {
@@ -44,23 +48,25 @@
       text-decoration: none;
     }
 
+    /* NAVIGATION */
+
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
       padding: 15px clamp(18px, 5vw, 70px);
-      background: rgba(9, 7, 16, .88);
+      background: rgba(9, 7, 16, .92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
     }
 
     .brand {
       font-size: 1.15rem;
-      letter-spacing: .12em;
+      letter-spacing: .10em;
       color: var(--lavender);
       font-weight: bold;
     }
@@ -77,13 +83,14 @@
       transition: color .2s;
     }
 
-    nav a:hover,
-    nav a.active {
+    nav a:hover {
       color: white;
     }
 
+    /* HERO */
+
     .hero {
-      min-height: 620px;
+      min-height: 650px;
       padding: 100px 20px 80px;
       text-align: center;
       display: grid;
@@ -95,37 +102,11 @@
         radial-gradient(ellipse at 50% 42%, rgba(145,91,211,.32), transparent 48%);
     }
 
-    .hero:before,
-    .hero:after {
-      content: "✧";
-      position: absolute;
-      color: rgba(224,205,255,.45);
-      font-size: 2rem;
-      animation: float 5s ease-in-out infinite;
-    }
-
-    .hero:before {
-      left: 13%;
-      top: 25%;
-    }
-
-    .hero:after {
-      right: 15%;
-      bottom: 25%;
-      animation-delay: 1.5s;
-    }
-
-    @keyframes float {
-      50% {
-        transform: translateY(-16px) rotate(25deg);
-        opacity: .7;
-      }
-    }
-
     .hero-inner {
       width: 100%;
       max-width: 1000px;
-      min-width: 0;
+      position: relative;
+      z-index: 2;
     }
 
     .eyebrow {
@@ -135,7 +116,6 @@
       text-transform: uppercase;
     }
 
-    /* Responsive main title: keeps the full server name visible */
     h1 {
       width: 100%;
       margin: 18px 0 12px;
@@ -143,7 +123,9 @@
       line-height: 1.15;
       letter-spacing: clamp(.01em, .65vw, .10em);
       color: #f2eaff;
-      text-shadow: 0 0 18px rgba(177,126,255,.75), 0 0 48px rgba(143,79,215,.4);
+      text-shadow:
+        0 0 18px rgba(177,126,255,.75),
+        0 0 48px rgba(143,79,215,.4);
       overflow-wrap: anywhere;
     }
 
@@ -173,6 +155,12 @@
       letter-spacing: .08em;
       cursor: pointer;
       box-shadow: 0 0 22px rgba(151,102,224,.2);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(151,102,224,.35);
     }
 
     .btn.secondary {
@@ -180,19 +168,110 @@
       color: var(--lavender);
     }
 
+    /* PIXEL BLOCK DECORATIONS */
+
+    .pixel-block {
+      position: absolute;
+      width: 45px;
+      height: 45px;
+      image-rendering: pixelated;
+      opacity: .65;
+      pointer-events: none;
+      animation: blockFloat 5s ease-in-out infinite;
+    }
+
+    .pixel-purple {
+      background:
+        linear-gradient(135deg, #c5a0ff 0 25%, #8558c5 25% 70%, #56367e 70%);
+      box-shadow: 0 0 22px rgba(168,121,255,.35);
+    }
+
+    .pixel-grass {
+      background:
+        linear-gradient(to bottom, #78a94c 0 24%, #795332 24% 100%);
+      box-shadow: 0 0 15px rgba(120,169,76,.2);
+    }
+
+    .pixel-stone {
+      background:
+        linear-gradient(135deg, #a49caf 0 25%, #625a72 25% 70%, #393344 70%);
+    }
+
+    .block-one {
+      top: 20%;
+      left: 8%;
+    }
+
+    .block-two {
+      top: 65%;
+      right: 10%;
+      animation-delay: 1s;
+    }
+
+    .block-three {
+      top: 75%;
+      left: 20%;
+      width: 28px;
+      height: 28px;
+      animation-delay: 2s;
+    }
+
+    .block-four {
+      top: 18%;
+      right: 20%;
+      width: 32px;
+      height: 32px;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes blockFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-18px) rotate(8deg);
+      }
+    }
+
+    /* SERVER ADDRESS */
+
+    .copyline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .copy {
+      color: var(--muted);
+      font: .93rem/1.65 Arial, sans-serif;
+    }
+
+    #copyStatus {
+      min-height: 1.2em;
+      color: var(--lavender);
+      font: .8rem Arial, sans-serif;
+    }
+
+    /* MAIN CONTENT */
+
     main {
       width: min(1120px, 92%);
       margin: auto;
     }
 
     section {
-      padding: 75px 0;
+      padding: 85px 0;
       scroll-margin-top: 72px;
+      position: relative;
     }
 
     .section-head {
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 35px;
     }
 
     h2 {
@@ -207,23 +286,47 @@
       font: .95rem/1.6 Arial, sans-serif;
     }
 
+    /* MINECRAFT-INSPIRED PIXEL CARDS */
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 17px;
+      gap: 20px;
     }
 
     .card {
-      background: linear-gradient(160deg, rgba(37,25,56,.92), rgba(17,13,26,.95));
-      border: 1px solid var(--line);
-      padding: 24px;
-      border-radius: 8px;
-      box-shadow: 0 12px 35px rgba(0,0,0,.16);
+      position: relative;
+      background:
+        linear-gradient(160deg, rgba(37,25,56,.95), rgba(17,13,26,.98));
+      border: 2px solid var(--line);
+      padding: 25px;
+      border-radius: 3px;
+      box-shadow:
+        0 12px 35px rgba(0,0,0,.2),
+        inset 0 0 20px rgba(168,121,255,.04);
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      overflow: hidden;
+    }
+
+    .card:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #67439e, #c5a0ff, #67439e);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(192,153,255,.7);
+      box-shadow: 0 15px 35px rgba(112,69,166,.2);
     }
 
     .card .symbol {
       color: var(--purple);
-      font-size: 1.7rem;
+      font-size: 1.9rem;
     }
 
     h3 {
@@ -232,11 +335,32 @@
       letter-spacing: .04em;
     }
 
-    .card p,
-    .copy {
+    .card p {
       color: var(--muted);
       font: .93rem/1.65 Arial, sans-serif;
     }
+
+    /* GAMEMODE FEATURED */
+
+    .featured-heading {
+      margin-top: 75px;
+    }
+
+    .featured-heading h2 {
+      text-shadow: 0 0 18px rgba(168,121,255,.5);
+    }
+
+    .featured-label {
+      display: inline-block;
+      padding: 7px 13px;
+      border: 1px solid #a879ff;
+      color: #e4d3ff;
+      font: bold .7rem Arial, sans-serif;
+      letter-spacing: .15em;
+      margin-bottom: 15px;
+    }
+
+    /* STORE */
 
     .store-card {
       position: relative;
@@ -279,6 +403,8 @@
       margin-top: 22px;
     }
 
+    /* STAFF */
+
     .staff-placeholder {
       text-align: center;
     }
@@ -300,6 +426,8 @@
       overflow-wrap: anywhere;
     }
 
+    /* RULES */
+
     .rules {
       max-width: 760px;
       margin: auto;
@@ -311,28 +439,55 @@
       font: .95rem/1.6 Arial, sans-serif;
     }
 
+    /* SCROLL REVEAL ANIMATIONS */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(45px);
+      transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-45px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(45px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* FOOTER */
+
     footer {
       border-top: 1px solid var(--line);
       text-align: center;
-      padding: 30px 15px;
+      padding: 35px 15px;
       color: #81778f;
       font: .8rem Arial, sans-serif;
+      background: rgba(9,7,16,.6);
     }
 
-    .copyline {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    #copyStatus {
-      min-height: 1.2em;
-      color: var(--lavender);
-      font: .8rem Arial, sans-serif;
-    }
+    /* RESPONSIVE */
 
     @media (max-width: 650px) {
       .topbar {
@@ -356,11 +511,44 @@
       .eyebrow {
         letter-spacing: .2em;
       }
+
+      .pixel-block {
+        width: 25px;
+        height: 25px;
+      }
+
+      section {
+        padding: 65px 0;
+      }
+    }
+
+    /* ACCESSIBILITY */
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *:before, *:after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .reveal,
+      .reveal-left,
+      .reveal-right {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- NAVIGATION -->
+
   <header class="topbar">
     <a class="brand" href="#home">ChronosphearSMP</a>
 
@@ -373,8 +561,16 @@
     </nav>
   </header>
 
+  <!-- HERO -->
+
   <div class="hero" id="home">
-    <div class="hero-inner">
+
+    <div class="pixel-block pixel-purple block-one"></div>
+    <div class="pixel-block pixel-grass block-two"></div>
+    <div class="pixel-block pixel-stone block-three"></div>
+    <div class="pixel-block pixel-purple block-four"></div>
+
+    <div class="hero-inner reveal">
       <div class="eyebrow">A world beyond the ordinary</div>
 
       <h1>ChronosphearSMP</h1>
@@ -404,47 +600,58 @@
   </div>
 
   <main>
+
+    <!-- GAMEMODES -->
+
     <section id="modes">
-      <div class="section-head">
+
+      <div class="section-head reveal">
         <h2>CHOOSE YOUR REALM</h2>
         <p>Find your place in the ChronosphearSMP world.</p>
       </div>
 
       <div class="grid">
-        <article class="card">
+        <article class="card reveal">
           <div class="symbol">✧</div>
           <h3>Survival</h3>
-          <p>Gather resources, build your home, and create your own adventure.</p>
-        </article>
-
-        <article class="card">
-          <div class="symbol">⚔</div>
-          <h3>KitPvP</h3>
-          <p>Test your skills in fast-paced player-versus-player battles.</p>
-        </article>
-
-        <article class="card">
-          <div class="symbol">♜</div>
-          <h3>Duels</h3>
-          <p>Challenge another player and prove your skill one match at a time.</p>
-        </article>
-
-        <article class="card">
-          <div class="symbol">✦</div>
-          <h3>Creative</h3>
-          <p>Build without limits and bring your biggest ideas to life.</p>
+          <p>
+            Gather resources, build your home, explore the world,
+            and create your own adventure.
+          </p>
         </article>
       </div>
+
+      <div class="section-head featured-heading reveal">
+        <span class="featured-label">FEATURED GAME MODE</span>
+        <h2>JUJUTSU KAISEN</h2>
+        <p>Enter the world of Jujutsu Kaisen and test your abilities.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card reveal">
+          <div class="symbol">⚔</div>
+          <h3>KitPvP</h3>
+          <p>
+            Players FFA — fight other players in an all-out
+            free-for-all battle.
+          </p>
+        </article>
+      </div>
+
     </section>
 
+    <!-- STORE -->
+
     <section id="store">
-      <div class="section-head">
+
+      <div class="section-head reveal">
         <h2>THE CELESTIAL STORE</h2>
         <p>Optional support packages and proposed server perks.</p>
       </div>
 
       <div class="grid">
-        <article class="card store-card">
+
+        <article class="card store-card reveal">
           <span class="tag">Starter</span>
           <h3>Supporter</h3>
           <div class="price">Coming soon</div>
@@ -457,7 +664,7 @@
           </button>
         </article>
 
-        <article class="card store-card">
+        <article class="card store-card reveal">
           <span class="tag">Special</span>
           <h3>Celestial</h3>
           <div class="price">Coming soon</div>
@@ -470,7 +677,7 @@
           </button>
         </article>
 
-        <article class="card store-card">
+        <article class="card store-card reveal">
           <span class="tag">Premium</span>
           <h3>Seraph</h3>
           <div class="price">Coming soon</div>
@@ -482,47 +689,57 @@
             NOT AVAILABLE YET
           </button>
         </article>
+
       </div>
 
-      <div class="notice">
+      <div class="notice reveal">
         <strong>Store preview only:</strong>
         Payments and purchases are not enabled. These packages are examples,
         not offers for sale. A parent or guardian must help set up and manage
         any payment service before the server accepts money. Rewards and
         monetization rules must be checked before launch.
       </div>
+
     </section>
 
+    <!-- STAFF -->
+
     <section id="staff">
-      <div class="section-head">
+
+      <div class="section-head reveal">
         <h2>THE TEAM</h2>
         <p>Meet the people leading ChronosphearSMP.</p>
       </div>
 
       <div class="grid">
-        <article class="card staff-placeholder">
+
+        <article class="card staff-placeholder reveal-left">
           <div class="symbol">♛</div>
           <span class="staff-role">Owner</span>
           <h3 class="staff-name">Kinji_Hakari</h3>
           <p>Founder and owner of ChronosphearSMP.</p>
         </article>
 
-        <article class="card staff-placeholder">
+        <article class="card staff-placeholder reveal-right">
           <div class="symbol">✧</div>
           <span class="staff-role">Co-Owner</span>
           <h3 class="staff-name">Ryomen_Sukuna</h3>
           <p>Co-owner of ChronosphearSMP.</p>
         </article>
+
       </div>
     </section>
 
+    <!-- RULES -->
+
     <section id="rules">
-      <div class="section-head">
+
+      <div class="section-head reveal">
         <h2>SERVER RULES</h2>
         <p>Help keep the community fair and welcoming.</p>
       </div>
 
-      <div class="card rules">
+      <div class="card rules reveal">
         <ol>
           <li>Respect other players and staff.</li>
           <li>No cheating, hacked clients, or unfair exploits.</li>
@@ -535,8 +752,12 @@
           The server owner can update these rules to match the final server setup.
         </p>
       </div>
+
     </section>
+
   </main>
+
+  <!-- FOOTER -->
 
   <footer>
     <div>
@@ -549,19 +770,29 @@
   </footer>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // AUTOMATIC YEAR
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // COPY SERVER ADDRESS
 
     document.getElementById("copyIp").addEventListener("click", async () => {
-      const address = document.getElementById("serverAddress").textContent.trim();
+      const address =
+        document.getElementById("serverAddress").textContent.trim();
+
       const status = document.getElementById("copyStatus");
 
       try {
         await navigator.clipboard.writeText(address);
         status.textContent = "Server address copied!";
       } catch {
-        status.textContent = "Copy isn't available here. Select the address and copy it.";
+        status.textContent =
+          "Copy isn't available here. Select the address and copy it.";
       }
     });
+
+    // STORE PREVIEW BUTTONS
 
     document.querySelectorAll(".store-button").forEach(button => {
       button.addEventListener("click", () => {
@@ -569,6 +800,34 @@
           "The store is a preview. Purchases are not enabled yet.";
       });
     });
+
+    // SCROLL ANIMATIONS
+
+    const revealElements = document.querySelectorAll(
+      ".reveal, .reveal-left, .reveal-right"
+    );
+
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12
+      });
+
+      revealElements.forEach(element => {
+        revealObserver.observe(element);
+      });
+    } else {
+      revealElements.forEach(element => {
+        element.classList.add("visible");
+      });
+    }
   </script>
+
 </body>
 </html>
