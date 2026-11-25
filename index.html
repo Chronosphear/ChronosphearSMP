@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <script src="https://cdn.jsdelivr.net/npm/skinview3d@3.0.0/bundles/skinview3d.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skinview3d@3.4.2/bundles/skinview3d.bundle.js"></script>
 
   <style>
     :root {
@@ -51,10 +51,10 @@
       isolation: isolate;
     }
 
-    /* Keep the animated star canvas between the page background and content. */
+    /* Stars are above the page background and below site content. */
     header, main, footer {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     a {
@@ -82,8 +82,9 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;
+      z-index: 1;
       pointer-events: none;
+      display: block;
     }
 
     body::before {
@@ -501,7 +502,35 @@
     }
 
     .skin-container canvas {
+      display: block;
+      width: 100%;
       max-width: 100%;
+      height: 260px;
+    }
+
+    .skin-fallback {
+      height: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #e9c8ff;
+      font-family: "Orbitron", sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .skin-fallback-icon {
+      font-size: 42px;
+      color: var(--pink);
+      text-shadow: 0 0 24px rgba(236, 72, 153, 0.8);
+    }
+
+    .skin-fallback small {
+      color: var(--muted);
+      font-family: "Poppins", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0;
     }
 
     .staff-card h3 {
@@ -1062,11 +1091,11 @@
         stars.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          size: Math.random() * 1.7 + 0.3,
-          opacity: Math.random(),
-          speed: Math.random() * 0.012 + 0.003,
+          size: Math.random() * 1.9 + 0.65,
+          opacity: Math.random() * 0.65 + 0.25,
+          speed: Math.random() * 0.009 + 0.004,
           direction: Math.random() > 0.5 ? 1 : -1,
-          depth: Math.random() * 0.35 + 0.05
+          depth: Math.random() * 0.55 + 0.18
         });
       }
     }
@@ -1100,8 +1129,8 @@
         ctx.fillStyle =
           `rgba(220, 170, 255, ${star.opacity})`;
 
-        ctx.shadowBlur = star.size * 5;
-        ctx.shadowColor = "rgba(190, 100, 255, 0.8)";
+        ctx.shadowBlur = star.size * 7;
+        ctx.shadowColor = "rgba(205, 135, 255, 0.95)";
         ctx.fill();
       }
 
@@ -1119,58 +1148,79 @@
     drawStars();
 
     // STAFF SKIN VIEWERS
+    // Uses skinview3d and the local skin PNGs stored in this repository.
 
-    function createSkinViewer(elementId, skinPath) {
+    function createSkinViewer(elementId, skinPath, displayName) {
       const container = document.getElementById(elementId);
+      if (!container) return;
 
-      if (!container || typeof skinview3d === "undefined") {
+      const showFallback = (message) => {
+        console.error(displayName + " preview:", message);
+        container.innerHTML = '<div class="skin-fallback"><span class="skin-fallback-icon">✦</span><span>' +
+          displayName + '</span><small>3D preview could not load</small></div>';
+      };
+
+      if (!window.skinview3d || !window.skinview3d.SkinViewer) {
+        showFallback("skinview3d library did not load from the CDN.");
         return;
       }
 
-      try {
-        const canvas = document.createElement("canvas");
-        canvas.setAttribute("aria-label", "Rotatable Minecraft character preview");
+      const width = Math.max(container.clientWidth || 300, 240);
+      const height = 260;
+      const canvas = document.createElement("canvas");
+      canvas.setAttribute("aria-label", displayName + " Minecraft skin preview");
+      canvas.style.width = "100%";
+      canvas.style.height = height + "px";
+      canvas.style.display = "block";
 
-        const viewer = new skinview3d.SkinViewer({
+      try {
+        const viewer = new window.skinview3d.SkinViewer({
           canvas: canvas,
-          width: Math.max(container.clientWidth, 280),
-          height: 260
+          width: width,
+          height: height,
+          skin: skinPath
         });
 
         container.replaceChildren(canvas);
-        viewer.controls.enableRotate = true;
-        viewer.controls.enableZoom = false;
-        viewer.controls.enablePan = false;
-        viewer.animation = new skinview3d.IdleAnimation();
+        viewer.zoom = 0.78;
+        viewer.autoRotate = true;
 
-        canvas.style.width = "100%";
-        canvas.style.height = "260px";
-        canvas.style.display = "block";
+        if (viewer.controls) {
+          viewer.controls.enableRotate = true;
+          viewer.controls.enableZoom = false;
+          viewer.controls.enablePan = false;
+        }
 
-        // Load the local PNG explicitly for a reliable custom-skin preview.
-        viewer.loadSkin(skinPath).catch(error => {
-          console.error("Could not load Minecraft skin:", skinPath, error);
-          container.textContent = "Character skin could not be loaded";
-        });
+        if (window.skinview3d.IdleAnimation) {
+          viewer.animation = new window.skinview3d.IdleAnimation();
+        }
 
         const resizeViewer = () => {
-          viewer.resize(Math.max(container.clientWidth, 280), 260);
+          viewer.width = Math.max(container.clientWidth || 300, 240);
+          viewer.height = height;
         };
 
-        window.addEventListener("resize", resizeViewer);
         if ("ResizeObserver" in window) {
           const observer = new ResizeObserver(resizeViewer);
           observer.observe(container);
+        } else {
+          window.addEventListener("resize", resizeViewer, { passive: true });
         }
+
+        viewer.loadSkin(skinPath).catch((error) => {
+          showFallback("Could not load " + skinPath + ": " + error);
+        });
       } catch (error) {
-        console.error("Could not load skin viewer:", error);
-        container.textContent = "Skin preview unavailable";
+        showFallback(error && error.message ? error.message : error);
       }
     }
 
-    createSkinViewer("kinji-skin", "./kinji_hakari.png");
-    createSkinViewer("sukuna-skin", "./ryomen_sukuna.png");
-  </script>
+    window.addEventListener("load", () => {
+      createSkinViewer("kinji-skin", "./kinji_hakari.png", "Kinji_Hakari");
+      createSkinViewer("sukuna-skin", "./ryomen_sukuna.png", "Ryomen_Sukuna");
+    });
+
+    </script>
 
 </body>
 </html>
