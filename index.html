@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#10091d">
+
   <title>ChronosphearSMP | Enter Another Realm</title>
 
   <script src="https://unpkg.com/skinview3d@3.0.0/bundles/skinview3d.bundle.js"></script>
@@ -12,30 +13,26 @@
   <style>
     :root {
       --bg: #090710;
-      --panel: #151020;
+      --panel: #10091d;
+      --panel-light: #191027;
       --purple: #a855f7;
-      --purple-light: #d8b4fe;
-      --silver: #e5e1ed;
-      --muted: #aaa0b9;
-      --border: rgba(190, 140, 255, .22);
+      --purple-light: #d8a4ff;
+      --pink: #ec4899;
+      --white: #f5edff;
+      --muted: #a99bb9;
+      --border: rgba(184, 119, 255, 0.22);
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-
-    html {
+      box-sizing: border-box;
       scroll-behavior: smooth;
-      scroll-padding-top: 90px;
     }
 
     body {
-      background:
-        radial-gradient(ellipse at 50% 0%, #25133b 0%, transparent 48%),
-        var(--bg);
-      color: var(--silver);
+      background: var(--bg);
+      color: var(--white);
       font-family: Arial, Helvetica, sans-serif;
       overflow-x: hidden;
     }
@@ -46,43 +43,120 @@
     }
 
     button {
-      font: inherit;
+      font-family: inherit;
     }
-
-    /* SCROLL PROGRESS BAR */
 
     .scroll-progress {
       position: fixed;
       top: 0;
       left: 0;
       width: 0%;
-      height: 3px;
-      background: linear-gradient(90deg, #7e22ce, #d8b4fe, #a855f7);
-      box-shadow: 0 0 12px #a855f7;
-      z-index: 1000;
+      height: 4px;
+      background: linear-gradient(90deg, var(--purple), var(--pink));
+      z-index: 9999;
+      box-shadow: 0 0 15px var(--purple);
+    }
+
+    .background-glow {
+      position: fixed;
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(130, 40, 220, 0.13), transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .floating-blocks {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .floating-blocks span {
+      position: absolute;
+      display: block;
+      width: 12px;
+      height: 12px;
+      background: rgba(183, 117, 255, 0.22);
+      transform: rotate(45deg);
+      animation: float 14s infinite ease-in-out;
+    }
+
+    .floating-blocks span:nth-child(1) {
+      top: 20%;
+      left: 10%;
+    }
+
+    .floating-blocks span:nth-child(2) {
+      top: 65%;
+      left: 20%;
+      animation-delay: 2s;
+    }
+
+    .floating-blocks span:nth-child(3) {
+      top: 35%;
+      right: 15%;
+      animation-delay: 4s;
+    }
+
+    .floating-blocks span:nth-child(4) {
+      top: 80%;
+      right: 25%;
+      animation-delay: 6s;
+    }
+
+    .floating-blocks span:nth-child(5) {
+      top: 10%;
+      right: 35%;
+      animation-delay: 8s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0.2;
+      }
+      50% {
+        transform: translateY(-45px) rotate(135deg);
+        opacity: 0.8;
+      }
     }
 
     /* NAVIGATION */
 
-    .navbar {
-      position: sticky;
+    header {
+      position: fixed;
       top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 19px 8%;
-      background: rgba(9, 7, 16, .88);
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(9, 7, 16, 0.88);
       backdrop-filter: blur(15px);
       border-bottom: 1px solid var(--border);
     }
 
+    nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
     .logo {
-      color: var(--purple-light);
-      font-weight: 900;
       font-size: 21px;
-      letter-spacing: 1px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--purple-light);
+      text-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
     }
 
     .nav-links {
@@ -93,685 +167,435 @@
     }
 
     .nav-links a {
+      font-size: 12px;
       color: var(--muted);
-      font-size: 13px;
-      transition: color .7s, text-shadow .7s;
+      letter-spacing: 1.5px;
+      transition: 0.3s;
     }
 
     .nav-links a:hover {
-      color: white;
-      text-shadow: 0 0 12px var(--purple);
+      color: var(--purple-light);
+      text-shadow: 0 0 10px var(--purple);
+    }
+
+    /* GENERAL SECTIONS */
+
+    section {
+      padding: 110px 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-heading span {
+      color: var(--pink);
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(30px, 5vw, 45px);
+      margin-top: 12px;
+      color: var(--white);
+      text-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin-top: 15px;
+      line-height: 1.7;
     }
 
     /* HERO */
 
     .hero {
-      min-height: 650px;
+      min-height: 100vh;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 100px 20px;
-      position: relative;
-      overflow: hidden;
+      padding-top: 150px;
     }
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 850px;
-    }
-
-    .eyebrow {
-      color: var(--purple-light);
-      letter-spacing: 5px;
+    .hero-label {
+      color: var(--pink);
       font-size: 12px;
-      text-transform: uppercase;
-      margin-bottom: 22px;
+      letter-spacing: 6px;
+      margin-bottom: 25px;
     }
 
     .hero h1 {
-      font-size: clamp(2rem, 6.5vw, 4.5rem);
-      line-height: 1.15;
-      letter-spacing: clamp(1px, .5vw, 5px);
-      overflow-wrap: anywhere;
-      color: white;
-      text-shadow: 0 0 15px rgba(168,85,247,.8),
-                   0 0 45px rgba(168,85,247,.35);
-      animation: titleGlow 8s ease-in-out infinite alternate;
+      font-size: clamp(45px, 9vw, 95px);
+      font-weight: 1000;
+      letter-spacing: 5px;
+      background: linear-gradient(90deg, #d8a4ff, #a855f7, #ec4899);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: titleGlow 8s ease-in-out infinite;
     }
 
     @keyframes titleGlow {
-      from {
-        text-shadow: 0 0 12px rgba(168,85,247,.35);
+      0%, 100% {
+        filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.2));
       }
-      to {
-        text-shadow: 0 0 20px rgba(168,85,247,.9),
-                     0 0 55px rgba(168,85,247,.5);
+      50% {
+        filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.65));
       }
+    }
+
+    .hero h2 {
+      font-size: clamp(16px, 3vw, 25px);
+      color: var(--purple-light);
+      margin-top: 20px;
+      letter-spacing: 4px;
     }
 
     .hero p {
+      max-width: 650px;
+      margin-top: 25px;
       color: var(--muted);
-      margin: 22px auto 30px;
       line-height: 1.8;
-      font-size: 16px;
     }
 
-    .buttons {
+    .hero-buttons {
       display: flex;
-      justify-content: center;
+      gap: 15px;
+      margin-top: 35px;
       flex-wrap: wrap;
-      gap: 13px;
+      justify-content: center;
     }
 
     .btn {
-      display: inline-block;
-      border: 1px solid var(--purple);
-      background: linear-gradient(135deg, #9333ea, #6b21a8);
-      color: white;
-      padding: 13px 22px;
+      padding: 15px 28px;
       border-radius: 5px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      border: 1px solid var(--purple);
+      transition: 0.3s;
       cursor: pointer;
-      transition: transform 1s ease, box-shadow 1s ease;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #7928ca, #a855f7);
+      color: white;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--purple-light);
     }
 
     .btn:hover {
       transform: translateY(-4px);
-      box-shadow: 0 0 25px rgba(168,85,247,.5);
-    }
-
-    .btn.secondary {
-      background: transparent;
-      border-color: var(--border);
-    }
-
-    /* FLOATING BLOCKS */
-
-    .pixel-block {
-      position: absolute;
-      width: 45px;
-      height: 45px;
-      opacity: .25;
-      image-rendering: pixelated;
-      animation: blockFloat 14s ease-in-out infinite;
-      box-shadow: 0 0 25px currentColor;
-    }
-
-    .block-one {
-      top: 20%;
-      left: 12%;
-      background: #9333ea;
-      color: #9333ea;
-    }
-
-    .block-two {
-      top: 65%;
-      right: 14%;
-      background: #6b7280;
-      color: #6b7280;
-      animation-delay: 3s;
-    }
-
-    .block-three {
-      bottom: 12%;
-      left: 25%;
-      background: #4ade80;
-      color: #4ade80;
-      animation-delay: 6s;
-    }
-
-    .block-four {
-      top: 18%;
-      right: 25%;
-      background: #c084fc;
-      color: #c084fc;
-      animation-delay: 4s;
-    }
-
-    @keyframes blockFloat {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-25px) rotate(10deg);
-      }
-    }
-
-    section {
-      padding: 85px 8%;
-    }
-
-    .section-heading {
-      text-align: center;
-      margin-bottom: 45px;
-    }
-
-    .section-heading h2 {
-      color: white;
-      font-size: clamp(25px, 4vw, 36px);
-      letter-spacing: 3px;
-      margin-bottom: 12px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      font-size: 14px;
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
     }
 
     /* GAMEMODES */
 
-    .gamemode-grid {
+    .mode-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 25px;
-      max-width: 1100px;
-      margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
     }
 
-    .game-card {
-      position: relative;
-      min-width: 0;
-      overflow: hidden;
-      padding: 30px;
-      background: linear-gradient(145deg, rgba(45,25,68,.9), rgba(16,12,25,.98));
+    .mode-card {
+      background: linear-gradient(145deg, #191027, #0e0917);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      box-shadow: 0 12px 35px rgba(0,0,0,.25);
-      transition: transform 1s ease, border-color 1s ease, box-shadow 1s ease;
+      padding: 35px 25px;
+      border-radius: 10px;
+      transition: 0.35s;
+      text-align: center;
     }
 
-    .game-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, #7e22ce, #d8b4fe, #7e22ce);
-    }
-
-    .game-card:hover {
-      transform: translateY(-7px);
+    .mode-card:hover {
+      transform: translateY(-8px);
       border-color: var(--purple);
-      box-shadow: 0 15px 40px rgba(147,51,234,.25);
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
     }
 
-    .game-icon {
+    .mode-icon {
       font-size: 38px;
-      margin: 12px 0 18px;
+      margin-bottom: 20px;
     }
 
-    .game-card h3 {
-      color: white;
-      font-size: 27px;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-    }
-
-    .game-card > p {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 14px;
-    }
-
-    .game-tag {
-      display: inline-block;
-      margin-bottom: 12px;
+    .mode-card h3 {
       color: var(--purple-light);
-      border: 1px solid rgba(216,180,254,.35);
-      background: rgba(147,51,234,.12);
-      padding: 6px 10px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-
-    .jjk-feature {
-      margin-top: 27px;
-      padding: 20px;
-      background: rgba(8,6,15,.65);
-      border: 1px solid rgba(168,85,247,.3);
-      border-radius: 6px;
-      transition: background 1s, border-color 1s;
-    }
-
-    .jjk-feature:hover {
-      background: rgba(30,15,45,.85);
-      border-color: var(--purple);
-    }
-
-    .jjk-feature h4 {
-      color: var(--purple-light);
-      font-size: 17px;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-    }
-
-    .jjk-feature p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 20px;
       margin-bottom: 15px;
     }
 
-    .jjk-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 9px;
+    .mode-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
     }
 
-    .jjk-item {
-      padding: 10px;
-      background: rgba(147,51,234,.12);
-      border: 1px solid rgba(168,85,247,.2);
-      border-radius: 4px;
-      color: #e9d5ff;
-      font-size: 12px;
-      text-align: center;
-      transition: transform 1s, background 1s;
-    }
-
-    .jjk-item:hover {
-      transform: translateY(-4px);
-      background: rgba(147,51,234,.3);
-    }
-
-    .kitpvp-label {
+    .mode-status {
       display: inline-block;
-      margin-top: 18px;
-      color: #e9d5ff;
-      background: rgba(147,51,234,.18);
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: bold;
+      margin-top: 22px;
+      color: var(--pink);
+      font-size: 10px;
       letter-spacing: 2px;
     }
 
-    /* SERVER */
+    /* SERVER ADDRESS */
 
     .server-box {
       max-width: 750px;
-      margin: 0 auto;
+      margin: auto;
+      padding: 40px 25px;
       text-align: center;
-      padding: 35px 25px;
-      background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #191027, #0e0917);
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.08);
+    }
+
+    .server-box h3 {
+      font-size: 25px;
+      color: var(--purple-light);
+      margin-bottom: 15px;
+    }
+
+    .server-box p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 25px;
     }
 
     .server-address {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .server-address code {
-      color: var(--purple-light);
       background: #090710;
       border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 13px 16px;
+      border-radius: 5px;
+      padding: 17px;
+      color: var(--pink);
+      font-weight: bold;
+      letter-spacing: 1px;
       overflow-wrap: anywhere;
+      margin-bottom: 20px;
     }
 
     /* STORE */
 
-    .store-category {
-      max-width: 1150px;
-      margin: 0 auto 65px;
-    }
-
-    .store-category-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .store-category-heading h3 {
-      color: var(--purple-light);
-      font-size: 23px;
-      letter-spacing: 2px;
-    }
-
-    .store-category-heading span {
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: 1px;
-    }
-
     .store-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
     }
 
     .store-card {
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      padding: 28px 20px;
-      background: linear-gradient(150deg, #1c142a, #110d1a);
+      background: linear-gradient(145deg, #191027, #0e0917);
       border: 1px solid var(--border);
-      border-radius: 7px;
-      transition: transform 1s, border-color 1s, box-shadow 1s;
-    }
-
-    .store-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #6b21a8, #d8b4fe, #6b21a8);
+      border-radius: 10px;
+      padding: 35px 25px;
+      text-align: center;
+      transition: 0.3s;
     }
 
     .store-card:hover {
       transform: translateY(-7px);
-      border-color: var(--purple);
-      box-shadow: 0 12px 30px rgba(147,51,234,.2);
+      border-color: var(--pink);
     }
 
-    .store-icon {
-      font-size: 35px;
-      margin-bottom: 15px;
-    }
-
-    .store-card h4 {
+    .store-card h3 {
       color: var(--purple-light);
-      margin-bottom: 10px;
-      font-size: 19px;
-      letter-spacing: 1px;
-    }
-
-    .store-price {
-      color: white;
-      font-size: 25px;
-      font-weight: 900;
-      margin: 15px 0;
-      text-shadow: 0 0 15px rgba(168,85,247,.45);
+      font-size: 21px;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
     }
 
     .store-card p {
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.6;
-      min-height: 42px;
-      margin-bottom: 17px;
+      line-height: 1.8;
     }
 
-    .unavailable {
-      display: inline-block;
-      padding: 10px 13px;
-      background: #292333;
-      border: 1px solid #51445f;
-      color: #bdb2c9;
-      border-radius: 4px;
+    .store-status {
+      color: var(--pink);
       font-size: 10px;
-      letter-spacing: 1px;
-      font-weight: bold;
-    }
-
-    .store-note {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.7;
-      margin-top: 25px;
+      letter-spacing: 2px;
+      margin-top: 22px;
+      display: block;
     }
 
     /* STAFF */
 
     .staff-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 25px;
-      max-width: 850px;
-      margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 800px;
+      margin: auto;
     }
 
     .staff-card {
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      padding: 28px 20px 30px;
-      background: linear-gradient(150deg, #211431, #100c19);
+      background: linear-gradient(145deg, #191027, #0e0917);
       border: 1px solid var(--border);
-      border-radius: 9px;
-      transition: transform 1s, border-color 1s, box-shadow 1s;
-    }
-
-    .staff-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #7e22ce, #d8b4fe, #7e22ce);
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      transition: 0.35s;
+      overflow: hidden;
     }
 
     .staff-card:hover {
-      transform: translateY(-7px);
+      transform: translateY(-8px);
       border-color: var(--purple);
-      box-shadow: 0 12px 30px rgba(147,51,234,.25);
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
     }
 
     .staff-rank {
-      display: inline-block;
-      margin-bottom: 14px;
-      color: var(--purple-light);
-      font-size: 10px;
+      color: var(--pink);
+      font-size: 11px;
       letter-spacing: 3px;
-      font-weight: bold;
+      display: block;
+      margin-bottom: 15px;
     }
 
     .skin-viewer {
       width: 100%;
       max-width: 300px;
       height: 320px;
-      margin: 0 auto 15px;
       display: block;
-      border-radius: 8px;
-      background:
-        radial-gradient(ellipse at center, rgba(147,51,234,.24), transparent 70%),
-        #0c0913;
-      border: 1px solid rgba(168,85,247,.22);
-      cursor: grab;
+      margin: 0 auto;
+      background: radial-gradient(ellipse, rgba(112, 42, 180, 0.2), transparent 70%);
       touch-action: pan-y;
-    }
-
-    .skin-viewer:active {
-      cursor: grabbing;
-    }
-
-    .skin-instructions {
-      color: var(--muted);
-      font-size: 11px;
-      margin: 12px 0 18px;
-      letter-spacing: .5px;
     }
 
     .skin-status {
       color: var(--purple-light);
-      font-size: 11px;
-      margin-bottom: 15px;
-      min-height: 14px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      min-height: 15px;
+      margin: 5px 0 15px;
+    }
+
+    .skin-instructions {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      margin-top: 15px;
     }
 
     .staff-card h3 {
-      color: white;
-      font-size: 21px;
-      margin-bottom: 9px;
+      color: var(--purple-light);
+      font-size: 23px;
+      margin-top: 10px;
     }
 
     .staff-card > p {
-      color: var(--purple-light);
-      font-size: 12px;
-      letter-spacing: 3px;
-    }
-
-    .sukuna-avatar {
-      width: 100%;
-      max-width: 300px;
-      height: 320px;
-      margin: 0 auto 15px;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(ellipse at center, rgba(220,38,38,.2), transparent 70%),
-        #0c0913;
-      border: 1px solid rgba(220,38,38,.25);
-      border-radius: 8px;
-      font-size: 85px;
-      text-shadow: 0 0 35px rgba(220,38,38,.5);
-    }
-
-    .sukuna-note {
-      color: var(--muted);
+      color: var(--pink);
       font-size: 11px;
-      margin: 12px 0 18px;
+      letter-spacing: 3px;
+      margin-top: 10px;
     }
 
     /* RULES */
 
     .rules-list {
       max-width: 800px;
-      margin: 0 auto;
+      margin: auto;
       display: grid;
-      gap: 12px;
+      gap: 15px;
     }
 
     .rule {
-      padding: 17px 20px;
-      background: var(--panel);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 22px;
       border: 1px solid var(--border);
-      border-left: 4px solid var(--purple);
-      border-radius: 4px;
-      color: #d6cde0;
-      font-size: 14px;
-      line-height: 1.6;
-      transition: transform 1s, background 1s;
+      background: rgba(25, 16, 39, 0.7);
+      border-radius: 7px;
     }
 
-    .rule:hover {
-      transform: translateX(7px);
-      background: #20152f;
+    .rule-number {
+      color: var(--pink);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .rule p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .rule strong {
+      color: var(--purple-light);
     }
 
     /* FOOTER */
 
     footer {
-      padding: 30px 20px;
-      text-align: center;
       border-top: 1px solid var(--border);
+      padding: 40px 20px;
+      text-align: center;
+      background: rgba(9, 7, 16, 0.8);
+    }
+
+    footer h3 {
+      color: var(--purple-light);
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    footer p {
       color: var(--muted);
       font-size: 12px;
       line-height: 1.8;
-      background: rgba(5,4,10,.8);
     }
 
-    /* SCROLL REVEAL ANIMATIONS */
+    /* SCROLL ANIMATIONS */
 
     .reveal,
     .reveal-left,
     .reveal-right,
     .reveal-scale {
       opacity: 0;
-      filter: blur(7px);
-      transition:
-        opacity 1.6s cubic-bezier(.2,.7,.2,1),
-        transform 1.6s cubic-bezier(.2,.7,.2,1),
-        filter 1.6s ease;
-      will-change: opacity, transform, filter;
+      transition: opacity 1.6s ease, transform 1.6s ease;
     }
 
     .reveal {
-      transform: translateY(90px);
+      transform: translateY(45px);
     }
 
     .reveal-left {
-      transform: translateX(-90px);
+      transform: translateX(-45px);
     }
 
     .reveal-right {
-      transform: translateX(90px);
+      transform: translateX(45px);
     }
 
     .reveal-scale {
-      transform: scale(.88);
+      transform: scale(0.9);
     }
 
-    .reveal.visible,
-    .reveal-left.visible,
-    .reveal-right.visible,
-    .reveal-scale.visible {
+    .reveal.active,
+    .reveal-left.active,
+    .reveal-right.active,
+    .reveal-scale.active {
       opacity: 1;
-      filter: blur(0);
-      transform: translate(0,0) scale(1);
-    }
-
-    /* STAGGERED ANIMATIONS */
-
-    .gamemode-grid .game-card:nth-child(2) {
-      transition-delay: .3s;
-    }
-
-    .store-grid .store-card:nth-child(2) {
-      transition-delay: .2s;
-    }
-
-    .store-grid .store-card:nth-child(3) {
-      transition-delay: .4s;
-    }
-
-    .staff-grid .staff-card:nth-child(2) {
-      transition-delay: .3s;
-    }
-
-    .rules-list .rule:nth-child(2) {
-      transition-delay: .15s;
-    }
-
-    .rules-list .rule:nth-child(3) {
-      transition-delay: .3s;
-    }
-
-    .rules-list .rule:nth-child(4) {
-      transition-delay: .45s;
-    }
-
-    .rules-list .rule:nth-child(5) {
-      transition-delay: .6s;
+      transform: translate(0) scale(1);
     }
 
     /* MOBILE */
 
-    @media (max-width: 900px) {
-      .store-grid {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
-    }
-
     @media (max-width: 700px) {
-      .navbar {
-        padding: 16px 5%;
+      nav {
         flex-direction: column;
+        padding: 15px;
       }
 
       .nav-links {
@@ -779,40 +603,26 @@
         gap: 15px;
       }
 
-      section {
-        padding: 65px 5%;
-      }
-
-      .gamemode-grid,
-      .store-grid,
-      .staff-grid {
-        grid-template-columns: 1fr;
+      .nav-links a {
+        font-size: 10px;
       }
 
       .hero {
-        min-height: 570px;
+        padding-top: 170px;
       }
 
-      .skin-viewer,
-      .sukuna-avatar {
-        height: 300px;
+      section {
+        padding: 85px 18px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+      *,
+      *::before,
+      *::after {
         scroll-behavior: auto !important;
-        animation: none !important;
-        transition: none !important;
-      }
-
-      .reveal,
-      .reveal-left,
-      .reveal-right,
-      .reveal-scale {
-        opacity: 1;
-        filter: none;
-        transform: none;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -821,95 +631,104 @@
 <body>
 
   <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="background-glow"></div>
+
+  <div class="floating-blocks">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
   <!-- NAVIGATION -->
 
-  <nav class="navbar">
-    <a href="#home" class="logo">ChronosphearSMP</a>
+  <header>
+    <nav>
+      <a href="#home" class="logo">CHRONOSPHEAR</a>
 
-    <div class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#gamemodes">Gamemodes</a>
-      <a href="#store">Store</a>
-      <a href="#staff">Staff</a>
-      <a href="#rules">Rules</a>
-    </div>
-  </nav>
-
-  <!-- HOMEPAGE -->
-
-  <header class="hero" id="home">
-    <div class="pixel-block block-one"></div>
-    <div class="pixel-block block-two"></div>
-    <div class="pixel-block block-three"></div>
-    <div class="pixel-block block-four"></div>
-
-    <div class="hero-content reveal">
-      <div class="eyebrow">A world beyond the ordinary</div>
-
-      <h1>ChronosphearSMP</h1>
-
-      <p>
-        Explore new realms. Build your legacy. Write your story.
-      </p>
-
-      <div class="buttons">
-        <a href="#gamemodes" class="btn">EXPLORE GAMEMODES</a>
-        <a href="#store" class="btn secondary">VIEW STORE</a>
+      <div class="nav-links">
+        <a href="#home">HOME</a>
+        <a href="#gamemodes">GAMEMODES</a>
+        <a href="#server">SERVER</a>
+        <a href="#store">STORE</a>
+        <a href="#staff">STAFF</a>
+        <a href="#rules">RULES</a>
       </div>
-    </div>
+    </nav>
   </header>
+
+  <!-- HOME -->
+
+  <section class="hero" id="home">
+    <div class="hero-label reveal">✦ A NEW ERA BEGINS ✦</div>
+
+    <h1 class="reveal">CHRONOSPHEAR</h1>
+
+    <h2 class="reveal">ENTER ANOTHER REALM</h2>
+
+    <p class="reveal">
+      Step into a world beyond time. Discover new adventures,
+      challenge other players, and create your own legacy
+      inside the Chronosphear universe.
+    </p>
+
+    <div class="hero-buttons reveal">
+      <a href="#server" class="btn btn-primary">JOIN THE SERVER</a>
+      <a href="#gamemodes" class="btn btn-secondary">EXPLORE REALMS</a>
+    </div>
+  </section>
 
   <!-- GAMEMODES -->
 
   <section id="gamemodes">
     <div class="section-heading reveal">
-      <h2>GAMEMODES</h2>
-      <p>Choose your realm and begin your adventure.</p>
+      <span>DISCOVER YOUR DESTINY</span>
+      <h2>OUR REALMS</h2>
+      <p>Choose your path and enter another world.</p>
     </div>
 
-    <div class="gamemode-grid">
+    <div class="mode-grid">
 
-      <article class="game-card reveal-left">
-        <div class="game-icon">🌌</div>
-        <span class="game-tag">MAIN GAMEMODE</span>
-        <h3>SURVIVAL</h3>
-
+      <div class="mode-card reveal">
+        <div class="mode-icon">🌲</div>
+        <h3>Survival</h3>
         <p>
-          Explore the world, gather resources, build your base,
-          and create your own adventure.
+          Explore the world, gather resources, build your
+          kingdom, and survive alongside other players.
         </p>
+        <span class="mode-status">✦ AVAILABLE</span>
+      </div>
 
-        <div class="jjk-feature">
-          <h4>JUJUTSU KAISEN FEATURED</h4>
-
-          <p>
-            Enter the world of Jujutsu Kaisen inside Survival.
-            Discover special content inspired by the series while
-            continuing your survival adventure.
-          </p>
-
-          <div class="jjk-list">
-            <div class="jjk-item">Cursed Techniques</div>
-            <div class="jjk-item">Special Abilities</div>
-            <div class="jjk-item">Jujutsu Battles</div>
-            <div class="jjk-item">Cursed Weapons</div>
-          </div>
-        </div>
-      </article>
-
-      <article class="game-card reveal-right">
-        <div class="game-icon">⚔️</div>
-        <span class="game-tag">PLAYER COMBAT</span>
-        <h3>KITPVP</h3>
-
+      <div class="mode-card reveal">
+        <div class="mode-icon">⚔️</div>
+        <h3>KitPvP</h3>
         <p>
-          Choose your kit, enter the arena, and battle against
-          other players.
+          Choose your kit, master your abilities, and
+          challenge other players in combat.
         </p>
+        <span class="mode-status">✦ IN DEVELOPMENT</span>
+      </div>
 
-        <span class="kitpvp-label">PLAYERS FFA</span>
-      </article>
+      <div class="mode-card reveal">
+        <div class="mode-icon">🔥</div>
+        <h3>Jujutsu Kaisen</h3>
+        <p>
+          Discover powerful abilities inspired by the
+          world of Jujutsu Kaisen.
+        </p>
+        <span class="mode-status">✦ IN DEVELOPMENT</span>
+      </div>
+
+      <div class="mode-card reveal">
+        <div class="mode-icon">🏆</div>
+        <h3>Duels</h3>
+        <p>
+          Test your skills against other players and
+          prove your strength in one-on-one battles.
+        </p>
+        <span class="mode-status">✦ COMING SOON</span>
+      </div>
 
     </div>
   </section>
@@ -918,22 +737,28 @@
 
   <section id="server">
     <div class="section-heading reveal">
-      <h2>JOIN THE SERVER</h2>
-      <p>Your next adventure is waiting.</p>
+      <span>YOUR JOURNEY STARTS HERE</span>
+      <h2>JOIN CHRONOSPHEAR</h2>
+      <p>Connect to the server and enter another realm.</p>
     </div>
 
-    <div class="server-box reveal-scale">
-      <p>SERVER ADDRESS</p>
+    <div class="server-box reveal">
+      <h3>CHRONOSPHEAR SMP</h3>
 
-      <div class="server-address">
-        <code id="serverAddress">wss://Chronosphear.eagler.host</code>
+      <p>
+        Join our Minecraft Eaglercraft server and begin
+        your adventure.
+      </p>
 
-        <button class="btn" onclick="copyAddress()">
-          COPY ADDRESS
-        </button>
+      <div class="server-address" id="serverAddress">
+        wss://Chronosphear.eagler.host
       </div>
 
-      <p id="copyMessage" style="margin-top:15px;color:#d8b4fe;"></p>
+      <button class="btn btn-primary" onclick="copyServerAddress()">
+        COPY SERVER ADDRESS
+      </button>
+
+      <p id="copyStatus" style="margin-top:15px; font-size:12px;"></p>
     </div>
   </section>
 
@@ -941,120 +766,52 @@
 
   <section id="store">
     <div class="section-heading reveal">
-      <h2>CHRONOSPHear STORE</h2>
-      <p>Unlock your place in the Chronosphear universe.</p>
+      <span>RISE THROUGH THE RANKS</span>
+      <h2>THE STORE</h2>
+      <p>Discover the upcoming ranks and perks of Chronosphear.</p>
     </div>
 
-    <div class="store-category">
-      <div class="store-category-heading reveal">
-        <h3>✦ SERVER RANKS</h3>
-        <span>PERMANENT RANK UPGRADES</span>
+    <div class="store-grid">
+
+      <div class="store-card reveal">
+        <h3>SUPPORTER</h3>
+        <p>
+          Support the server and unlock future perks.
+        </p>
+        <span class="store-status">NOT AVAILABLE YET</span>
       </div>
 
-      <div class="store-grid">
-
-        <article class="store-card reveal">
-          <div class="store-icon">✨</div>
-          <h4>ASTRAL</h4>
-          <div class="store-price">$4.99</div>
-          <p>Begin your journey with a special prefix, colored chat, and extra homes.</p>
-          <span class="unavailable">COMING SOON</span>
-        </article>
-
-        <article class="store-card reveal">
-          <div class="store-icon">💎</div>
-          <h4>CELESTIAL</h4>
-          <div class="store-price">$9.99</div>
-          <p>Rise higher with extra homes, exclusive cosmetics, and Astral benefits.</p>
-          <span class="unavailable">COMING SOON</span>
-        </article>
-
-        <article class="store-card reveal">
-          <div class="store-icon">👑</div>
-          <h4>SERAPH</h4>
-          <div class="store-price">$19.99</div>
-          <p>Unlock elite cosmetics, unique effects, and Celestial benefits.</p>
-          <span class="unavailable">COMING SOON</span>
-        </article>
-
-        <article class="store-card reveal">
-          <div class="store-icon">🌌</div>
-          <h4>CHRONOS</h4>
-          <div class="store-price">$29.99</div>
-          <p>Reach the legendary rank with the rarest prefix and exclusive cosmetics.</p>
-          <span class="unavailable">COMING SOON</span>
-        </article>
-
+      <div class="store-card reveal">
+        <h3>CELESTIAL</h3>
+        <p>
+          Reach a higher level of server prestige.
+        </p>
+        <span class="store-status">NOT AVAILABLE YET</span>
       </div>
+
+      <div class="store-card reveal">
+        <h3>SERAPH</h3>
+        <p>
+          Discover the highest upcoming rank.
+        </p>
+        <span class="store-status">NOT AVAILABLE YET</span>
+      </div>
+
     </div>
-
-    <div class="store-category">
-      <div class="store-category-heading reveal">
-        <h3>⚔ KITPVP KITS</h3>
-        <span>UNLOCK KITS FOR KITPVP</span>
-      </div>
-
-      <div class="store-grid">
-
-        <article class="store-card reveal">
-          <div class="store-icon">⚔️</div>
-          <h4>WARRIOR</h4>
-          <div class="store-price">$2.99</div>
-          <p>Balanced melee combat with iron equipment and a sword.</p>
-          <span class="unavailable">COMING SOON</span>
-        </article>
-
-        <article class="store-card reveal">
-          <div class="store-icon">🛡️</div>
-          <h4>TANK</h4>
-          <div class="store-price">$3.99</div>
-          <p>Heavy armor built to help you stand strong in the arena.</p>
-          <span class="unavailable">COMING SOON</span>
-        </article>
-
-        <article class="store-card reveal">
-          <div class="store-icon">🏹</div>
-          <h4>ARCHER</h4>
-          <div class="store-price">$2.99</div>
-          <p>Fight from a distance with a bow, arrows, and a stone sword.</p>
-          <span class="unavailable">COMING SOON</span>
-        </article>
-
-        <article class="store-card reveal">
-          <div class="store-icon">💜</div>
-          <h4>VIP</h4>
-          <div class="store-price">$5.99</div>
-          <p>Diamond sword, golden armor, and golden apples.</p>
-          <span class="unavailable">COMING SOON</span>
-        </article>
-
-        <article class="store-card reveal">
-          <div class="store-icon">🔥</div>
-          <h4>SPECIAL</h4>
-          <div class="store-price">$9.99</div>
-          <p>Full diamond equipment, a bow, arrows, and golden apples.</p>
-          <span class="unavailable">COMING SOON</span>
-        </article>
-
-      </div>
-    </div>
-
-    <p class="store-note">
-      Prices are proposed and purchases are not active yet.
-      Kit access and rank perks must be configured on the server before sales begin.
-      Ask a parent or guardian before making online purchases.
-    </p>
   </section>
 
   <!-- STAFF -->
 
   <section id="staff">
     <div class="section-heading reveal">
+      <span>THE PEOPLE BEHIND THE REALM</span>
       <h2>OUR STAFF</h2>
-      <p>The people behind ChronosphearSMP.</p>
+      <p>Meet the people building the Chronosphear universe.</p>
     </div>
 
     <div class="staff-grid">
+
+      <!-- OWNER: KINJI HAKARI -->
 
       <div class="staff-card reveal-left">
         <span class="staff-rank">✦ SERVER OWNER ✦</span>
@@ -1064,7 +821,7 @@
           class="skin-viewer"
           width="300"
           height="320"
-          aria-label="Rotatable 3D Minecraft skin of Kinji Hakari">
+          aria-label="3D Minecraft skin of Kinji Hakari">
         </canvas>
 
         <div class="skin-status" id="ownerSkinStatus">
@@ -1072,23 +829,35 @@
         </div>
 
         <h3>Kinji_Hakari</h3>
-        <p>OWNER</p>
+        <p>🪙 OWNER</p>
 
         <div class="skin-instructions">
           DRAG TO ROTATE · SCROLL TO ZOOM
         </div>
       </div>
 
+      <!-- CO-OWNER: RYOMEN SUKUNA -->
+
       <div class="staff-card reveal-right">
         <span class="staff-rank">✦ SERVER CO-OWNER ✦</span>
 
-        <div class="sukuna-avatar">🔥</div>
+        <canvas
+          id="sukunaSkin"
+          class="skin-viewer"
+          width="300"
+          height="320"
+          aria-label="3D Minecraft skin of Ryomen Sukuna">
+        </canvas>
+
+        <div class="skin-status" id="sukunaSkinStatus">
+          Loading Minecraft skin...
+        </div>
 
         <h3>Ryomen_Sukuna</h3>
-        <p>CO-OWNER</p>
+        <p>🔥 CO-OWNER</p>
 
-        <div class="sukuna-note">
-          Sukuna's Minecraft skin will be added later.
+        <div class="skin-instructions">
+          DRAG TO ROTATE · SCROLL TO ZOOM
         </div>
       </div>
 
@@ -1099,113 +868,119 @@
 
   <section id="rules">
     <div class="section-heading reveal">
+      <span>KEEP THE REALM ALIVE</span>
       <h2>SERVER RULES</h2>
-      <p>Help keep ChronosphearSMP fair and welcoming.</p>
+      <p>Respect the community and help keep Chronosphear enjoyable.</p>
     </div>
 
     <div class="rules-list">
-      <div class="rule reveal">01. Respect other players and staff.</div>
-      <div class="rule reveal">02. No cheating, hacked clients, or unfair exploits.</div>
-      <div class="rule reveal">03. No harassment, hate speech, or threats.</div>
-      <div class="rule reveal">04. Do not spam chat or advertise without permission.</div>
-      <div class="rule reveal">05. Listen to staff instructions and report problems respectfully.</div>
+
+      <div class="rule reveal">
+        <span class="rule-number">01</span>
+        <p>
+          <strong>Respect Everyone</strong><br>
+          Treat all players and staff members respectfully.
+        </p>
+      </div>
+
+      <div class="rule reveal">
+        <span class="rule-number">02</span>
+        <p>
+          <strong>No Cheating</strong><br>
+          Do not use unauthorized cheats, exploits, or unfair advantages.
+        </p>
+      </div>
+
+      <div class="rule reveal">
+        <span class="rule-number">03</span>
+        <p>
+          <strong>No Griefing</strong><br>
+          Do not destroy or steal from other players' builds without permission.
+        </p>
+      </div>
+
+      <div class="rule reveal">
+        <span class="rule-number">04</span>
+        <p>
+          <strong>Follow Staff Instructions</strong><br>
+          Listen to staff members when they are handling server issues.
+        </p>
+      </div>
+
+      <div class="rule reveal">
+        <span class="rule-number">05</span>
+        <p>
+          <strong>Have Fun</strong><br>
+          Enjoy the server and help make the community welcoming.
+        </p>
+      </div>
+
     </div>
   </section>
 
   <!-- FOOTER -->
 
   <footer>
-    <p>© <span id="year"></span> ChronosphearSMP. All rights reserved.</p>
+    <h3>CHRONOSPHEAR SMP</h3>
+
     <p>
-      ChronosphearSMP is not affiliated with Mojang or Microsoft.
-      Minecraft is a trademark of Mojang Studios.
+      Enter Another Realm.<br>
+      Built for adventure. Designed beyond time.
+    </p>
+
+    <p style="margin-top:20px;">
+      © 2026 ChronosphearSMP. All rights reserved.
     </p>
   </footer>
 
   <!-- JAVASCRIPT -->
 
   <script>
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    // COPY SERVER ADDRESS
 
-    /* COPY SERVER ADDRESS */
-
-    function copyAddress() {
-      const address =
-        document.getElementById("serverAddress").textContent;
-
-      const message =
-        document.getElementById("copyMessage");
+    function copyServerAddress() {
+      const address = document.getElementById("serverAddress").textContent.trim();
+      const status = document.getElementById("copyStatus");
 
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(address)
           .then(() => {
-            message.textContent = "Server address copied!";
+            status.textContent = "✦ SERVER ADDRESS COPIED ✦";
           })
           .catch(() => {
-            message.textContent = "Please copy the address manually.";
+            status.textContent = "Unable to copy. Please copy the address manually.";
           });
       } else {
         const temporaryInput = document.createElement("textarea");
         temporaryInput.value = address;
+        temporaryInput.style.position = "fixed";
+        temporaryInput.style.opacity = "0";
         document.body.appendChild(temporaryInput);
         temporaryInput.select();
 
         try {
           document.execCommand("copy");
-          message.textContent = "Server address copied!";
+          status.textContent = "✦ SERVER ADDRESS COPIED ✦";
         } catch (error) {
-          message.textContent = "Please copy the address manually.";
+          status.textContent = "Unable to copy. Please copy the address manually.";
         }
 
         temporaryInput.remove();
       }
     }
 
-    /* SLOW SCROLL PROGRESS BAR */
+    // LOAD A 3D MINECRAFT SKIN
 
-    const progressBar =
-      document.getElementById("scrollProgress");
+    function createSkinViewer(canvasId, statusId, imagePath, successMessage) {
+      const canvas = document.getElementById(canvasId);
+      const status = document.getElementById(statusId);
 
-    let scrollTicking = false;
-
-    function updateScrollProgress() {
-      const scrollableHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-
-      const scrollPosition =
-        window.scrollY;
-
-      const percentage =
-        scrollableHeight > 0
-          ? (scrollPosition / scrollableHeight) * 100
-          : 0;
-
-      progressBar.style.width = percentage + "%";
-      scrollTicking = false;
-    }
-
-    window.addEventListener("scroll", () => {
-      if (!scrollTicking) {
-        window.requestAnimationFrame(updateScrollProgress);
-        scrollTicking = true;
+      if (!canvas || !status) {
+        return;
       }
-    }, { passive: true });
-
-    updateScrollProgress();
-
-    /* 3D MINECRAFT SKIN */
-
-    const ownerStatus =
-      document.getElementById("ownerSkinStatus");
-
-    function loadOwnerSkin() {
-      const canvas =
-        document.getElementById("ownerSkin");
 
       if (typeof skinview3d === "undefined") {
-        ownerStatus.textContent =
-          "3D viewer could not load. Check your connection.";
+        status.textContent = "3D viewer library could not load.";
         return;
       }
 
@@ -1213,8 +988,7 @@
         const viewer = new skinview3d.SkinViewer({
           canvas: canvas,
           width: 300,
-          height: 320,
-          skin: "./kinji_hakari.png"
+          height: 320
         });
 
         viewer.controls.enableRotate = true;
@@ -1225,60 +999,83 @@
         viewer.zoom = 0.8;
         viewer.animation = new skinview3d.IdleAnimation();
 
-        viewer.loadSkin("./kinji_hakari.png")
+        viewer.loadSkin(imagePath)
           .then(() => {
-            ownerStatus.textContent =
-              "✦ HAKARI SKIN LOADED ✦";
+            status.textContent = successMessage;
           })
           .catch((error) => {
-            ownerStatus.textContent =
-              "Could not load skin. Check kinji_hakari.png.";
-
+            status.textContent = "Could not load " + imagePath;
             console.error("Skin loading error:", error);
           });
 
       } catch (error) {
-        ownerStatus.textContent =
-          "Could not initialize the skin viewer.";
-
+        status.textContent = "Could not initialize 3D viewer.";
         console.error("Skin viewer error:", error);
       }
     }
 
-    loadOwnerSkin();
+    // LOAD OWNER SKIN
 
-    /* SCROLL REVEAL SYSTEM */
+    createSkinViewer(
+      "ownerSkin",
+      "ownerSkinStatus",
+      "./kinji_hakari.png",
+      "✦ HAKARI SKIN LOADED ✦"
+    );
 
-    const revealElements =
-      document.querySelectorAll(
-        ".reveal, .reveal-left, .reveal-right, .reveal-scale"
-      );
+    // LOAD SUKUNA SKIN
 
-    if ("IntersectionObserver" in window) {
-      const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          threshold: 0.12,
-          rootMargin: "0px 0px -70px 0px"
-        }
-      );
+    createSkinViewer(
+      "sukunaSkin",
+      "sukunaSkinStatus",
+      "./ryomen_sukuna.png",
+      "✦ SUKUNA SKIN LOADED ✦"
+    );
 
-      revealElements.forEach((element) => {
-        revealObserver.observe(element);
-      });
+    // SCROLL REVEAL ANIMATIONS
 
-    } else {
-      revealElements.forEach((element) => {
-        element.classList.add("visible");
-      });
+    const revealElements = document.querySelectorAll(
+      ".reveal, .reveal-left, .reveal-right, .reveal-scale"
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+    revealElements.forEach((element) => {
+      observer.observe(element);
+    });
+
+    // SCROLL PROGRESS BAR
+
+    const progressBar = document.getElementById("scrollProgress");
+
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const scrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const progress =
+        scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
+      progressBar.style.width = progress + "%";
     }
+
+    window.addEventListener("scroll", updateScrollProgress, {
+      passive: true
+    });
+
+    updateScrollProgress();
   </script>
 
 </body>
