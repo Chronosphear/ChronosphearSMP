@@ -7,6 +7,8 @@
   <meta name="theme-color" content="#10091d">
   <title>ChronosphearSMP | Enter Another Realm</title>
 
+  <script src="https://unpkg.com/skinview3d@3.0.0/bundles/skinview3d.bundle.js"></script>
+
   <style>
     :root {
       --bg: #090710;
@@ -47,6 +49,21 @@
       font: inherit;
     }
 
+    /* SCROLL PROGRESS BAR */
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #7e22ce, #d8b4fe, #a855f7);
+      box-shadow: 0 0 12px #a855f7;
+      z-index: 1000;
+    }
+
+    /* NAVIGATION */
+
     .navbar {
       position: sticky;
       top: 0;
@@ -78,13 +95,15 @@
     .nav-links a {
       color: var(--muted);
       font-size: 13px;
-      transition: color .3s, text-shadow .3s;
+      transition: color .7s, text-shadow .7s;
     }
 
     .nav-links a:hover {
       color: white;
       text-shadow: 0 0 12px var(--purple);
     }
+
+    /* HERO */
 
     .hero {
       min-height: 650px;
@@ -119,12 +138,12 @@
       color: white;
       text-shadow: 0 0 15px rgba(168,85,247,.8),
                    0 0 45px rgba(168,85,247,.35);
-      animation: titleGlow 4s ease-in-out infinite alternate;
+      animation: titleGlow 8s ease-in-out infinite alternate;
     }
 
     @keyframes titleGlow {
       from {
-        text-shadow: 0 0 12px rgba(168,85,247,.4);
+        text-shadow: 0 0 12px rgba(168,85,247,.35);
       }
       to {
         text-shadow: 0 0 20px rgba(168,85,247,.9),
@@ -157,7 +176,7 @@
       font-weight: bold;
       letter-spacing: 1px;
       cursor: pointer;
-      transition: transform .3s, box-shadow .3s;
+      transition: transform 1s ease, box-shadow 1s ease;
     }
 
     .btn:hover {
@@ -170,13 +189,15 @@
       border-color: var(--border);
     }
 
+    /* FLOATING BLOCKS */
+
     .pixel-block {
       position: absolute;
       width: 45px;
       height: 45px;
       opacity: .25;
       image-rendering: pixelated;
-      animation: blockFloat 7s ease-in-out infinite;
+      animation: blockFloat 14s ease-in-out infinite;
       box-shadow: 0 0 25px currentColor;
     }
 
@@ -192,7 +213,7 @@
       right: 14%;
       background: #6b7280;
       color: #6b7280;
-      animation-delay: 1.5s;
+      animation-delay: 3s;
     }
 
     .block-three {
@@ -200,7 +221,7 @@
       left: 25%;
       background: #4ade80;
       color: #4ade80;
-      animation-delay: 3s;
+      animation-delay: 6s;
     }
 
     .block-four {
@@ -208,7 +229,7 @@
       right: 25%;
       background: #c084fc;
       color: #c084fc;
-      animation-delay: 2s;
+      animation-delay: 4s;
     }
 
     @keyframes blockFloat {
@@ -216,7 +237,7 @@
         transform: translateY(0) rotate(0deg);
       }
       50% {
-        transform: translateY(-30px) rotate(12deg);
+        transform: translateY(-25px) rotate(10deg);
       }
     }
 
@@ -249,7 +270,6 @@
       gap: 25px;
       max-width: 1100px;
       margin: 0 auto;
-      align-items: stretch;
     }
 
     .game-card {
@@ -261,7 +281,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       box-shadow: 0 12px 35px rgba(0,0,0,.25);
-      transition: transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+      transition: transform 1s ease, border-color 1s ease, box-shadow 1s ease;
     }
 
     .game-card::before {
@@ -275,7 +295,7 @@
     }
 
     .game-card:hover {
-      transform: translateY(-9px) scale(1.015);
+      transform: translateY(-7px);
       border-color: var(--purple);
       box-shadow: 0 15px 40px rgba(147,51,234,.25);
     }
@@ -317,7 +337,7 @@
       background: rgba(8,6,15,.65);
       border: 1px solid rgba(168,85,247,.3);
       border-radius: 6px;
-      transition: background .3s, border-color .3s;
+      transition: background 1s, border-color 1s;
     }
 
     .jjk-feature:hover {
@@ -353,7 +373,7 @@
       color: #e9d5ff;
       font-size: 12px;
       text-align: center;
-      transition: transform .3s, background .3s;
+      transition: transform 1s, background 1s;
     }
 
     .jjk-item:hover {
@@ -448,7 +468,7 @@
       background: linear-gradient(150deg, #1c142a, #110d1a);
       border: 1px solid var(--border);
       border-radius: 7px;
-      transition: transform .4s, border-color .4s, box-shadow .4s;
+      transition: transform 1s, border-color 1s, box-shadow 1s;
     }
 
     .store-card::before {
@@ -533,7 +553,7 @@
       background: linear-gradient(150deg, #211431, #100c19);
       border: 1px solid var(--border);
       border-radius: 9px;
-      transition: transform .4s, border-color .4s, box-shadow .4s;
+      transition: transform 1s, border-color 1s, box-shadow 1s;
     }
 
     .staff-card::before {
@@ -646,7 +666,7 @@
       color: #d6cde0;
       font-size: 14px;
       line-height: 1.6;
-      transition: transform .3s, background .3s;
+      transition: transform 1s, background 1s;
     }
 
     .rule:hover {
@@ -666,27 +686,31 @@
       background: rgba(5,4,10,.8);
     }
 
-    /* SCROLL ANIMATIONS */
+    /* SCROLL REVEAL ANIMATIONS */
 
-    .reveal, .reveal-left, .reveal-right, .reveal-scale {
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
       opacity: 0;
-      filter: blur(5px);
-      transition: opacity .9s cubic-bezier(.2,.7,.2,1),
-                  transform .9s cubic-bezier(.2,.7,.2,1),
-                  filter .9s ease;
-      will-change: opacity, transform;
+      filter: blur(7px);
+      transition:
+        opacity 1.6s cubic-bezier(.2,.7,.2,1),
+        transform 1.6s cubic-bezier(.2,.7,.2,1),
+        filter 1.6s ease;
+      will-change: opacity, transform, filter;
     }
 
     .reveal {
-      transform: translateY(55px);
+      transform: translateY(90px);
     }
 
     .reveal-left {
-      transform: translateX(-65px);
+      transform: translateX(-90px);
     }
 
     .reveal-right {
-      transform: translateX(65px);
+      transform: translateX(90px);
     }
 
     .reveal-scale {
@@ -702,37 +726,41 @@
       transform: translate(0,0) scale(1);
     }
 
+    /* STAGGERED ANIMATIONS */
+
     .gamemode-grid .game-card:nth-child(2) {
-      transition-delay: .15s;
+      transition-delay: .3s;
     }
 
     .store-grid .store-card:nth-child(2) {
-      transition-delay: .12s;
+      transition-delay: .2s;
     }
 
     .store-grid .store-card:nth-child(3) {
-      transition-delay: .24s;
+      transition-delay: .4s;
     }
 
     .staff-grid .staff-card:nth-child(2) {
-      transition-delay: .15s;
+      transition-delay: .3s;
     }
 
     .rules-list .rule:nth-child(2) {
-      transition-delay: .08s;
+      transition-delay: .15s;
     }
 
     .rules-list .rule:nth-child(3) {
-      transition-delay: .16s;
+      transition-delay: .3s;
     }
 
     .rules-list .rule:nth-child(4) {
-      transition-delay: .24s;
+      transition-delay: .45s;
     }
 
     .rules-list .rule:nth-child(5) {
-      transition-delay: .32s;
+      transition-delay: .6s;
     }
+
+    /* MOBILE */
 
     @media (max-width: 900px) {
       .store-grid {
@@ -774,8 +802,8 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
+        animation: none !important;
+        transition: none !important;
       }
 
       .reveal,
@@ -788,12 +816,11 @@
       }
     }
   </style>
-
-  <!-- 3D Minecraft character viewer -->
-  <script src="https://unpkg.com/skinview3d@3.0.0/bundles/skinview3d.bundle.js"></script>
 </head>
 
 <body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- NAVIGATION -->
 
@@ -845,9 +872,7 @@
 
       <article class="game-card reveal-left">
         <div class="game-icon">🌌</div>
-
         <span class="game-tag">MAIN GAMEMODE</span>
-
         <h3>SURVIVAL</h3>
 
         <p>
@@ -875,9 +900,7 @@
 
       <article class="game-card reveal-right">
         <div class="game-icon">⚔️</div>
-
         <span class="game-tag">PLAYER COMBAT</span>
-
         <h3>KITPVP</h3>
 
         <p>
@@ -891,7 +914,7 @@
     </div>
   </section>
 
-  <!-- SERVER ADDRESS -->
+  <!-- SERVER -->
 
   <section id="server">
     <div class="section-heading reveal">
@@ -905,7 +928,7 @@
       <div class="server-address">
         <code id="serverAddress">wss://Chronosphear.eagler.host</code>
 
-        <button class="btn" id="copyButton" onclick="copyAddress()">
+        <button class="btn" onclick="copyAddress()">
           COPY ADDRESS
         </button>
       </div>
@@ -922,8 +945,6 @@
       <p>Unlock your place in the Chronosphear universe.</p>
     </div>
 
-    <!-- SERVER RANKS -->
-
     <div class="store-category">
       <div class="store-category-heading reveal">
         <h3>✦ SERVER RANKS</h3>
@@ -936,10 +957,7 @@
           <div class="store-icon">✨</div>
           <h4>ASTRAL</h4>
           <div class="store-price">$4.99</div>
-          <p>
-            Begin your journey with a special prefix, colored chat,
-            and extra homes.
-          </p>
+          <p>Begin your journey with a special prefix, colored chat, and extra homes.</p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -947,10 +965,7 @@
           <div class="store-icon">💎</div>
           <h4>CELESTIAL</h4>
           <div class="store-price">$9.99</div>
-          <p>
-            Rise higher with extra homes, exclusive cosmetics,
-            and Astral benefits.
-          </p>
+          <p>Rise higher with extra homes, exclusive cosmetics, and Astral benefits.</p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -958,10 +973,7 @@
           <div class="store-icon">👑</div>
           <h4>SERAPH</h4>
           <div class="store-price">$19.99</div>
-          <p>
-            Unlock elite cosmetics, unique effects,
-            and Celestial benefits.
-          </p>
+          <p>Unlock elite cosmetics, unique effects, and Celestial benefits.</p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -969,17 +981,12 @@
           <div class="store-icon">🌌</div>
           <h4>CHRONOS</h4>
           <div class="store-price">$29.99</div>
-          <p>
-            Reach the legendary rank with the rarest prefix
-            and exclusive cosmetics.
-          </p>
+          <p>Reach the legendary rank with the rarest prefix and exclusive cosmetics.</p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
       </div>
     </div>
-
-    <!-- KITPVP KITS -->
 
     <div class="store-category">
       <div class="store-category-heading reveal">
@@ -993,9 +1000,7 @@
           <div class="store-icon">⚔️</div>
           <h4>WARRIOR</h4>
           <div class="store-price">$2.99</div>
-          <p>
-            Balanced melee combat with iron equipment and a sword.
-          </p>
+          <p>Balanced melee combat with iron equipment and a sword.</p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -1003,9 +1008,7 @@
           <div class="store-icon">🛡️</div>
           <h4>TANK</h4>
           <div class="store-price">$3.99</div>
-          <p>
-            Heavy armor built to help you stand strong in the arena.
-          </p>
+          <p>Heavy armor built to help you stand strong in the arena.</p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -1013,9 +1016,7 @@
           <div class="store-icon">🏹</div>
           <h4>ARCHER</h4>
           <div class="store-price">$2.99</div>
-          <p>
-            Fight from a distance with a bow, arrows, and a stone sword.
-          </p>
+          <p>Fight from a distance with a bow, arrows, and a stone sword.</p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -1023,9 +1024,7 @@
           <div class="store-icon">💜</div>
           <h4>VIP</h4>
           <div class="store-price">$5.99</div>
-          <p>
-            Diamond sword, golden armor, and golden apples.
-          </p>
+          <p>Diamond sword, golden armor, and golden apples.</p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -1033,9 +1032,7 @@
           <div class="store-icon">🔥</div>
           <h4>SPECIAL</h4>
           <div class="store-price">$9.99</div>
-          <p>
-            Full diamond equipment, a bow, arrows, and golden apples.
-          </p>
+          <p>Full diamond equipment, a bow, arrows, and golden apples.</p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -1058,8 +1055,6 @@
     </div>
 
     <div class="staff-grid">
-
-      <!-- OWNER -->
 
       <div class="staff-card reveal-left">
         <span class="staff-rank">✦ SERVER OWNER ✦</span>
@@ -1084,14 +1079,10 @@
         </div>
       </div>
 
-      <!-- CO-OWNER -->
-
       <div class="staff-card reveal-right">
         <span class="staff-rank">✦ SERVER CO-OWNER ✦</span>
 
-        <div class="sukuna-avatar">
-          🔥
-        </div>
+        <div class="sukuna-avatar">🔥</div>
 
         <h3>Ryomen_Sukuna</h3>
         <p>CO-OWNER</p>
@@ -1113,35 +1104,18 @@
     </div>
 
     <div class="rules-list">
-      <div class="rule reveal">
-        01. Respect other players and staff.
-      </div>
-
-      <div class="rule reveal">
-        02. No cheating, hacked clients, or unfair exploits.
-      </div>
-
-      <div class="rule reveal">
-        03. No harassment, hate speech, or threats.
-      </div>
-
-      <div class="rule reveal">
-        04. Do not spam chat or advertise without permission.
-      </div>
-
-      <div class="rule reveal">
-        05. Listen to staff instructions and report problems respectfully.
-      </div>
+      <div class="rule reveal">01. Respect other players and staff.</div>
+      <div class="rule reveal">02. No cheating, hacked clients, or unfair exploits.</div>
+      <div class="rule reveal">03. No harassment, hate speech, or threats.</div>
+      <div class="rule reveal">04. Do not spam chat or advertise without permission.</div>
+      <div class="rule reveal">05. Listen to staff instructions and report problems respectfully.</div>
     </div>
   </section>
 
   <!-- FOOTER -->
 
   <footer>
-    <p>
-      © <span id="year"></span> ChronosphearSMP. All rights reserved.
-    </p>
-
+    <p>© <span id="year"></span> ChronosphearSMP. All rights reserved.</p>
     <p>
       ChronosphearSMP is not affiliated with Mojang or Microsoft.
       Minecraft is a trademark of Mojang Studios.
@@ -1169,13 +1143,10 @@
             message.textContent = "Server address copied!";
           })
           .catch(() => {
-            message.textContent =
-              "Please copy the address manually.";
+            message.textContent = "Please copy the address manually.";
           });
       } else {
-        const temporaryInput =
-          document.createElement("textarea");
-
+        const temporaryInput = document.createElement("textarea");
         temporaryInput.value = address;
         document.body.appendChild(temporaryInput);
         temporaryInput.select();
@@ -1184,13 +1155,44 @@
           document.execCommand("copy");
           message.textContent = "Server address copied!";
         } catch (error) {
-          message.textContent =
-            "Please copy the address manually.";
+          message.textContent = "Please copy the address manually.";
         }
 
         temporaryInput.remove();
       }
     }
+
+    /* SLOW SCROLL PROGRESS BAR */
+
+    const progressBar =
+      document.getElementById("scrollProgress");
+
+    let scrollTicking = false;
+
+    function updateScrollProgress() {
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const scrollPosition =
+        window.scrollY;
+
+      const percentage =
+        scrollableHeight > 0
+          ? (scrollPosition / scrollableHeight) * 100
+          : 0;
+
+      progressBar.style.width = percentage + "%";
+      scrollTicking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(updateScrollProgress);
+        scrollTicking = true;
+      }
+    }, { passive: true });
+
+    updateScrollProgress();
 
     /* 3D MINECRAFT SKIN */
 
@@ -1221,9 +1223,7 @@
         viewer.controls.autoRotate = true;
 
         viewer.zoom = 0.8;
-
-        viewer.animation =
-          new skinview3d.IdleAnimation();
+        viewer.animation = new skinview3d.IdleAnimation();
 
         viewer.loadSkin("./kinji_hakari.png")
           .then(() => {
@@ -1247,7 +1247,7 @@
 
     loadOwnerSkin();
 
-    /* SCROLL ANIMATIONS */
+    /* SCROLL REVEAL SYSTEM */
 
     const revealElements =
       document.querySelectorAll(
@@ -1255,8 +1255,8 @@
       );
 
     if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
+      const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add("visible");
@@ -1266,12 +1266,12 @@
         },
         {
           threshold: 0.12,
-          rootMargin: "0px 0px -45px 0px"
+          rootMargin: "0px 0px -70px 0px"
         }
       );
 
       revealElements.forEach((element) => {
-        observer.observe(element);
+        revealObserver.observe(element);
       });
 
     } else {
