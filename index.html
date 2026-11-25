@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +18,11 @@
       --border: rgba(190, 140, 255, .22);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     html {
       scroll-behavior: smooth;
@@ -34,8 +38,14 @@
       overflow-x: hidden;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
 
     .navbar {
       position: sticky;
@@ -113,7 +123,9 @@
     }
 
     @keyframes titleGlow {
-      from { text-shadow: 0 0 12px rgba(168,85,247,.4); }
+      from {
+        text-shadow: 0 0 12px rgba(168,85,247,.4);
+      }
       to {
         text-shadow: 0 0 20px rgba(168,85,247,.9),
                      0 0 55px rgba(168,85,247,.5);
@@ -168,29 +180,49 @@
       box-shadow: 0 0 25px currentColor;
     }
 
-    .block-one { top: 20%; left: 12%; background: #9333ea; color: #9333ea; }
+    .block-one {
+      top: 20%;
+      left: 12%;
+      background: #9333ea;
+      color: #9333ea;
+    }
+
     .block-two {
-      top: 65%; right: 14%;
-      background: #6b7280; color: #6b7280;
+      top: 65%;
+      right: 14%;
+      background: #6b7280;
+      color: #6b7280;
       animation-delay: 1.5s;
     }
+
     .block-three {
-      bottom: 12%; left: 25%;
-      background: #4ade80; color: #4ade80;
+      bottom: 12%;
+      left: 25%;
+      background: #4ade80;
+      color: #4ade80;
       animation-delay: 3s;
     }
+
     .block-four {
-      top: 18%; right: 25%;
-      background: #c084fc; color: #c084fc;
+      top: 18%;
+      right: 25%;
+      background: #c084fc;
+      color: #c084fc;
       animation-delay: 2s;
     }
 
     @keyframes blockFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(12deg); }
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-30px) rotate(12deg);
+      }
     }
 
-    section { padding: 85px 8%; }
+    section {
+      padding: 85px 8%;
+    }
 
     .section-heading {
       text-align: center;
@@ -208,6 +240,8 @@
       color: var(--muted);
       font-size: 14px;
     }
+
+    /* GAMEMODES */
 
     .gamemode-grid {
       display: grid;
@@ -246,7 +280,10 @@
       box-shadow: 0 15px 40px rgba(147,51,234,.25);
     }
 
-    .game-icon { font-size: 38px; margin: 12px 0 18px; }
+    .game-icon {
+      font-size: 38px;
+      margin: 12px 0 18px;
+    }
 
     .game-card h3 {
       color: white;
@@ -336,6 +373,8 @@
       font-weight: bold;
       letter-spacing: 2px;
     }
+
+    /* SERVER */
 
     .server-box {
       max-width: 750px;
@@ -589,6 +628,8 @@
       margin: 12px 0 18px;
     }
 
+    /* RULES */
+
     .rules-list {
       max-width: 800px;
       margin: 0 auto;
@@ -613,6 +654,8 @@
       background: #20152f;
     }
 
+    /* FOOTER */
+
     footer {
       padding: 30px 20px;
       text-align: center;
@@ -623,6 +666,8 @@
       background: rgba(5,4,10,.8);
     }
 
+    /* SCROLL ANIMATIONS */
+
     .reveal, .reveal-left, .reveal-right, .reveal-scale {
       opacity: 0;
       filter: blur(5px);
@@ -632,41 +677,98 @@
       will-change: opacity, transform;
     }
 
-    .reveal { transform: translateY(55px); }
-    .reveal-left { transform: translateX(-65px); }
-    .reveal-right { transform: translateX(65px); }
-    .reveal-scale { transform: scale(.88); }
+    .reveal {
+      transform: translateY(55px);
+    }
 
-    .reveal.visible, .reveal-left.visible,
-    .reveal-right.visible, .reveal-scale.visible {
+    .reveal-left {
+      transform: translateX(-65px);
+    }
+
+    .reveal-right {
+      transform: translateX(65px);
+    }
+
+    .reveal-scale {
+      transform: scale(.88);
+    }
+
+    .reveal.visible,
+    .reveal-left.visible,
+    .reveal-right.visible,
+    .reveal-scale.visible {
       opacity: 1;
       filter: blur(0);
       transform: translate(0,0) scale(1);
     }
 
-    .gamemode-grid .game-card:nth-child(2) { transition-delay: .15s; }
+    .gamemode-grid .game-card:nth-child(2) {
+      transition-delay: .15s;
+    }
 
-    .store-grid .store-card:nth-child(2) { transition-delay: .12s; }
-    .store-grid .store-card:nth-child(3) { transition-delay: .24s; }
+    .store-grid .store-card:nth-child(2) {
+      transition-delay: .12s;
+    }
 
-    .staff-grid .staff-card:nth-child(2) { transition-delay: .15s; }
+    .store-grid .store-card:nth-child(3) {
+      transition-delay: .24s;
+    }
 
-    .rules-list .rule:nth-child(2) { transition-delay: .08s; }
-    .rules-list .rule:nth-child(3) { transition-delay: .16s; }
-    .rules-list .rule:nth-child(4) { transition-delay: .24s; }
-    .rules-list .rule:nth-child(5) { transition-delay: .32s; }
+    .staff-grid .staff-card:nth-child(2) {
+      transition-delay: .15s;
+    }
+
+    .rules-list .rule:nth-child(2) {
+      transition-delay: .08s;
+    }
+
+    .rules-list .rule:nth-child(3) {
+      transition-delay: .16s;
+    }
+
+    .rules-list .rule:nth-child(4) {
+      transition-delay: .24s;
+    }
+
+    .rules-list .rule:nth-child(5) {
+      transition-delay: .32s;
+    }
 
     @media (max-width: 900px) {
-      .store-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .store-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
     }
 
     @media (max-width: 700px) {
-      .navbar { padding: 16px 5%; flex-direction: column; }
-      .nav-links { justify-content: center; gap: 15px; }
-      section { padding: 65px 5%; }
-      .gamemode-grid, .store-grid, .staff-grid { grid-template-columns: 1fr; }
-      .hero { min-height: 570px; }
-      .skin-viewer, .sukuna-avatar { height: 300px; }
+      .navbar {
+        padding: 16px 5%;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: 15px;
+      }
+
+      section {
+        padding: 65px 5%;
+      }
+
+      .gamemode-grid,
+      .store-grid,
+      .staff-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 570px;
+      }
+
+      .skin-viewer,
+      .sukuna-avatar {
+        height: 300px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -675,7 +777,11 @@
         animation-duration: .01ms !important;
         transition-duration: .01ms !important;
       }
-      .reveal, .reveal-left, .reveal-right, .reveal-scale {
+
+      .reveal,
+      .reveal-left,
+      .reveal-right,
+      .reveal-scale {
         opacity: 1;
         filter: none;
         transform: none;
@@ -689,8 +795,11 @@
 
 <body>
 
+  <!-- NAVIGATION -->
+
   <nav class="navbar">
     <a href="#home" class="logo">ChronosphearSMP</a>
+
     <div class="nav-links">
       <a href="#home">Home</a>
       <a href="#gamemodes">Gamemodes</a>
@@ -700,6 +809,8 @@
     </div>
   </nav>
 
+  <!-- HOMEPAGE -->
+
   <header class="hero" id="home">
     <div class="pixel-block block-one"></div>
     <div class="pixel-block block-two"></div>
@@ -708,14 +819,21 @@
 
     <div class="hero-content reveal">
       <div class="eyebrow">A world beyond the ordinary</div>
+
       <h1>ChronosphearSMP</h1>
-      <p>Explore new realms. Build your legacy. Write your story.</p>
+
+      <p>
+        Explore new realms. Build your legacy. Write your story.
+      </p>
+
       <div class="buttons">
         <a href="#gamemodes" class="btn">EXPLORE GAMEMODES</a>
         <a href="#store" class="btn secondary">VIEW STORE</a>
       </div>
     </div>
   </header>
+
+  <!-- GAMEMODES -->
 
   <section id="gamemodes">
     <div class="section-heading reveal">
@@ -724,15 +842,28 @@
     </div>
 
     <div class="gamemode-grid">
+
       <article class="game-card reveal-left">
         <div class="game-icon">🌌</div>
+
         <span class="game-tag">MAIN GAMEMODE</span>
+
         <h3>SURVIVAL</h3>
-        <p>Explore the world, gather resources, build your base, and create your own adventure.</p>
+
+        <p>
+          Explore the world, gather resources, build your base,
+          and create your own adventure.
+        </p>
 
         <div class="jjk-feature">
           <h4>JUJUTSU KAISEN FEATURED</h4>
-          <p>Enter the world of Jujutsu Kaisen inside Survival. Discover special content inspired by the series while continuing your survival adventure.</p>
+
+          <p>
+            Enter the world of Jujutsu Kaisen inside Survival.
+            Discover special content inspired by the series while
+            continuing your survival adventure.
+          </p>
+
           <div class="jjk-list">
             <div class="jjk-item">Cursed Techniques</div>
             <div class="jjk-item">Special Abilities</div>
@@ -744,13 +875,23 @@
 
       <article class="game-card reveal-right">
         <div class="game-icon">⚔️</div>
+
         <span class="game-tag">PLAYER COMBAT</span>
+
         <h3>KITPVP</h3>
-        <p>Choose your kit, enter the arena, and battle against other players.</p>
+
+        <p>
+          Choose your kit, enter the arena, and battle against
+          other players.
+        </p>
+
         <span class="kitpvp-label">PLAYERS FFA</span>
       </article>
+
     </div>
   </section>
+
+  <!-- SERVER ADDRESS -->
 
   <section id="server">
     <div class="section-heading reveal">
@@ -760,10 +901,15 @@
 
     <div class="server-box reveal-scale">
       <p>SERVER ADDRESS</p>
+
       <div class="server-address">
         <code id="serverAddress">wss://Chronosphear.eagler.host</code>
-        <button class="btn" id="copyButton" onclick="copyAddress()">COPY ADDRESS</button>
+
+        <button class="btn" id="copyButton" onclick="copyAddress()">
+          COPY ADDRESS
+        </button>
       </div>
+
       <p id="copyMessage" style="margin-top:15px;color:#d8b4fe;"></p>
     </div>
   </section>
@@ -776,6 +922,8 @@
       <p>Unlock your place in the Chronosphear universe.</p>
     </div>
 
+    <!-- SERVER RANKS -->
+
     <div class="store-category">
       <div class="store-category-heading reveal">
         <h3>✦ SERVER RANKS</h3>
@@ -783,11 +931,15 @@
       </div>
 
       <div class="store-grid">
+
         <article class="store-card reveal">
           <div class="store-icon">✨</div>
           <h4>ASTRAL</h4>
           <div class="store-price">$4.99</div>
-          <p>Begin your journey with a special prefix, colored chat, and extra homes.</p>
+          <p>
+            Begin your journey with a special prefix, colored chat,
+            and extra homes.
+          </p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -795,7 +947,10 @@
           <div class="store-icon">💎</div>
           <h4>CELESTIAL</h4>
           <div class="store-price">$9.99</div>
-          <p>Rise higher with extra homes, exclusive cosmetics, and Astral benefits.</p>
+          <p>
+            Rise higher with extra homes, exclusive cosmetics,
+            and Astral benefits.
+          </p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -803,7 +958,10 @@
           <div class="store-icon">👑</div>
           <h4>SERAPH</h4>
           <div class="store-price">$19.99</div>
-          <p>Unlock elite cosmetics, unique effects, and Celestial benefits.</p>
+          <p>
+            Unlock elite cosmetics, unique effects,
+            and Celestial benefits.
+          </p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -811,11 +969,17 @@
           <div class="store-icon">🌌</div>
           <h4>CHRONOS</h4>
           <div class="store-price">$29.99</div>
-          <p>Reach the legendary rank with the rarest prefix and exclusive cosmetics.</p>
+          <p>
+            Reach the legendary rank with the rarest prefix
+            and exclusive cosmetics.
+          </p>
           <span class="unavailable">COMING SOON</span>
         </article>
+
       </div>
     </div>
+
+    <!-- KITPVP KITS -->
 
     <div class="store-category">
       <div class="store-category-heading reveal">
@@ -824,11 +988,14 @@
       </div>
 
       <div class="store-grid">
+
         <article class="store-card reveal">
           <div class="store-icon">⚔️</div>
           <h4>WARRIOR</h4>
           <div class="store-price">$2.99</div>
-          <p>Balanced melee combat with iron equipment and a sword.</p>
+          <p>
+            Balanced melee combat with iron equipment and a sword.
+          </p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -836,7 +1003,9 @@
           <div class="store-icon">🛡️</div>
           <h4>TANK</h4>
           <div class="store-price">$3.99</div>
-          <p>Heavy armor built to help you stand strong in the arena.</p>
+          <p>
+            Heavy armor built to help you stand strong in the arena.
+          </p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -844,7 +1013,9 @@
           <div class="store-icon">🏹</div>
           <h4>ARCHER</h4>
           <div class="store-price">$2.99</div>
-          <p>Fight from a distance with a bow, arrows, and a stone sword.</p>
+          <p>
+            Fight from a distance with a bow, arrows, and a stone sword.
+          </p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -852,7 +1023,9 @@
           <div class="store-icon">💜</div>
           <h4>VIP</h4>
           <div class="store-price">$5.99</div>
-          <p>Diamond sword, golden armor, and golden apples.</p>
+          <p>
+            Diamond sword, golden armor, and golden apples.
+          </p>
           <span class="unavailable">COMING SOON</span>
         </article>
 
@@ -860,9 +1033,12 @@
           <div class="store-icon">🔥</div>
           <h4>SPECIAL</h4>
           <div class="store-price">$9.99</div>
-          <p>Full diamond equipment, a bow, arrows, and golden apples.</p>
+          <p>
+            Full diamond equipment, a bow, arrows, and golden apples.
+          </p>
           <span class="unavailable">COMING SOON</span>
         </article>
+
       </div>
     </div>
 
@@ -873,7 +1049,7 @@
     </p>
   </section>
 
-  <!-- STAFF WITH 3D SKIN VIEWER -->
+  <!-- STAFF -->
 
   <section id="staff">
     <div class="section-heading reveal">
@@ -928,6 +1104,8 @@
     </div>
   </section>
 
+  <!-- RULES -->
+
   <section id="rules">
     <div class="section-heading reveal">
       <h2>SERVER RULES</h2>
@@ -935,36 +1113,69 @@
     </div>
 
     <div class="rules-list">
-      <div class="rule reveal">01. Respect other players and staff.</div>
-      <div class="rule reveal">02. No cheating, hacked clients, or unfair exploits.</div>
-      <div class="rule reveal">03. No harassment, hate speech, or threats.</div>
-      <div class="rule reveal">04. Do not spam chat or advertise without permission.</div>
-      <div class="rule reveal">05. Listen to staff instructions and report problems respectfully.</div>
+      <div class="rule reveal">
+        01. Respect other players and staff.
+      </div>
+
+      <div class="rule reveal">
+        02. No cheating, hacked clients, or unfair exploits.
+      </div>
+
+      <div class="rule reveal">
+        03. No harassment, hate speech, or threats.
+      </div>
+
+      <div class="rule reveal">
+        04. Do not spam chat or advertise without permission.
+      </div>
+
+      <div class="rule reveal">
+        05. Listen to staff instructions and report problems respectfully.
+      </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
+
   <footer>
-    <p>© <span id="year"></span> ChronosphearSMP. All rights reserved.</p>
-    <p>ChronosphearSMP is not affiliated with Mojang or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
+    <p>
+      © <span id="year"></span> ChronosphearSMP. All rights reserved.
+    </p>
+
+    <p>
+      ChronosphearSMP is not affiliated with Mojang or Microsoft.
+      Minecraft is a trademark of Mojang Studios.
+    </p>
   </footer>
 
+  <!-- JAVASCRIPT -->
+
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
     /* COPY SERVER ADDRESS */
 
     function copyAddress() {
-      const address = document.getElementById("serverAddress").textContent;
-      const message = document.getElementById("copyMessage");
+      const address =
+        document.getElementById("serverAddress").textContent;
+
+      const message =
+        document.getElementById("copyMessage");
 
       if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(address).then(() => {
-          message.textContent = "Server address copied!";
-        }).catch(() => {
-          message.textContent = "Please copy the address manually.";
-        });
+        navigator.clipboard.writeText(address)
+          .then(() => {
+            message.textContent = "Server address copied!";
+          })
+          .catch(() => {
+            message.textContent =
+              "Please copy the address manually.";
+          });
       } else {
-        const temporaryInput = document.createElement("textarea");
+        const temporaryInput =
+          document.createElement("textarea");
+
         temporaryInput.value = address;
         document.body.appendChild(temporaryInput);
         temporaryInput.select();
@@ -973,7 +1184,8 @@
           document.execCommand("copy");
           message.textContent = "Server address copied!";
         } catch (error) {
-          message.textContent = "Please copy the address manually.";
+          message.textContent =
+            "Please copy the address manually.";
         }
 
         temporaryInput.remove();
@@ -982,13 +1194,16 @@
 
     /* 3D MINECRAFT SKIN */
 
-    const ownerStatus = document.getElementById("ownerSkinStatus");
+    const ownerStatus =
+      document.getElementById("ownerSkinStatus");
 
     function loadOwnerSkin() {
-      const canvas = document.getElementById("ownerSkin");
+      const canvas =
+        document.getElementById("ownerSkin");
 
       if (typeof skinview3d === "undefined") {
-        ownerStatus.textContent = "3D viewer could not load. Check your connection.";
+        ownerStatus.textContent =
+          "3D viewer could not load. Check your connection.";
         return;
       }
 
@@ -997,29 +1212,35 @@
           canvas: canvas,
           width: 300,
           height: 320,
-          skin: "https://mc-heads.net/skin/Kinji_Hakari"
+          skin: "./kinji_hakari.png"
         });
 
         viewer.controls.enableRotate = true;
         viewer.controls.enableZoom = true;
         viewer.controls.enablePan = false;
-        viewer.controls.autoRotate = false;
+        viewer.controls.autoRotate = true;
 
         viewer.zoom = 0.8;
 
-        viewer.animation = new skinview3d.IdleAnimation();
+        viewer.animation =
+          new skinview3d.IdleAnimation();
 
-        viewer.loadSkin("https://mc-heads.net/skin/Kinji_Hakari")
+        viewer.loadSkin("./kinji_hakari.png")
           .then(() => {
-            ownerStatus.textContent = "3D SKIN LOADED";
-          })
-          .catch(() => {
             ownerStatus.textContent =
-              "Skin unavailable. A Minecraft Java skin may be required.";
+              "✦ HAKARI SKIN LOADED ✦";
+          })
+          .catch((error) => {
+            ownerStatus.textContent =
+              "Could not load skin. Check kinji_hakari.png.";
+
+            console.error("Skin loading error:", error);
           });
 
       } catch (error) {
-        ownerStatus.textContent = "Could not initialize the skin viewer.";
+        ownerStatus.textContent =
+          "Could not initialize the skin viewer.";
+
         console.error("Skin viewer error:", error);
       }
     }
@@ -1028,29 +1249,37 @@
 
     /* SCROLL ANIMATIONS */
 
-    const revealElements = document.querySelectorAll(
-      ".reveal, .reveal-left, .reveal-right, .reveal-scale"
-    );
+    const revealElements =
+      document.querySelectorAll(
+        ".reveal, .reveal-left, .reveal-right, .reveal-scale"
+      );
 
     if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.12,
-        rootMargin: "0px 0px -45px 0px"
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: "0px 0px -45px 0px"
+        }
+      );
+
+      revealElements.forEach((element) => {
+        observer.observe(element);
       });
 
-      revealElements.forEach((element) => observer.observe(element));
     } else {
-      revealElements.forEach((element) => element.classList.add("visible"));
+      revealElements.forEach((element) => {
+        element.classList.add("visible");
+      });
     }
   </script>
 
 </body>
 </html>
-```
