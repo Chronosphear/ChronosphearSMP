@@ -1056,51 +1056,56 @@
       new Date().getFullYear();
 
     // ANIMATED BACKGROUND STARS
+    // The canvas is fixed to the viewport; its star positions shift at
+    // different speeds as the page scrolls, creating a clear parallax effect.
 
     const canvas = document.getElementById("star-background");
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas ? canvas.getContext("2d", { alpha: true }) : null;
 
     let stars = [];
     let width = 0;
     let height = 0;
-    let scrollPosition = 0;
+    let scrollPosition = window.scrollY || 0;
 
     function resizeCanvas() {
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      if (!canvas || !ctx) return;
 
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
 
-      canvas.width = width * pixelRatio;
-      canvas.height = height * pixelRatio;
+      canvas.width = Math.round(width * pixelRatio);
+      canvas.height = Math.round(height * pixelRatio);
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
 
       ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-
       createStars();
     }
 
     function createStars() {
-      const count = Math.min(
-        180,
-        Math.max(65, Math.floor((width * height) / 8500))
-      );
-
+      const count = Math.min(220, Math.max(90, Math.floor((width * height) / 6500)));
       stars = [];
 
       for (let i = 0; i < count; i++) {
         stars.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          size: Math.random() * 1.9 + 0.65,
-          opacity: Math.random() * 0.65 + 0.25,
-          speed: Math.random() * 0.009 + 0.004,
+          size: Math.random() * 1.8 + 0.7,
+          opacity: Math.random() * 0.55 + 0.35,
+          speed: Math.random() * 0.008 + 0.004,
           direction: Math.random() > 0.5 ? 1 : -1,
-          depth: Math.random() * 0.55 + 0.18
+          depth: Math.random() * 0.65 + 0.2
         });
       }
     }
 
     function drawStars() {
+      if (!ctx || !canvas) return;
+
+      // Read the current scroll position every frame so parallax cannot miss
+      // scroll events from touchpads, touchscreens, or fast scrolling.
+      scrollPosition = window.scrollY || window.pageYOffset || 0;
       ctx.clearRect(0, 0, width, height);
 
       for (const star of stars) {
@@ -1109,28 +1114,19 @@
         if (star.opacity >= 1) {
           star.opacity = 1;
           star.direction = -1;
-        }
-
-        if (star.opacity <= 0.08) {
-          star.opacity = 0.08;
+        } else if (star.opacity <= 0.12) {
+          star.opacity = 0.12;
           star.direction = 1;
         }
 
-        const scrollOffset = scrollPosition * star.depth;
-        let y = (star.y - scrollOffset) % height;
-
-        if (y < 0) {
-          y += height;
-        }
+        let y = (star.y - scrollPosition * star.depth) % height;
+        if (y < 0) y += height;
 
         ctx.beginPath();
         ctx.arc(star.x, y, star.size, 0, Math.PI * 2);
-
-        ctx.fillStyle =
-          `rgba(220, 170, 255, ${star.opacity})`;
-
+        ctx.fillStyle = "rgba(225, 190, 255, " + star.opacity + ")";
         ctx.shadowBlur = star.size * 7;
-        ctx.shadowColor = "rgba(205, 135, 255, 0.95)";
+        ctx.shadowColor = "rgba(195, 115, 255, 0.95)";
         ctx.fill();
       }
 
@@ -1138,14 +1134,13 @@
       requestAnimationFrame(drawStars);
     }
 
-    window.addEventListener("scroll", () => {
-      scrollPosition = window.scrollY;
-    }, { passive: true });
-
-    window.addEventListener("resize", resizeCanvas);
-
-    resizeCanvas();
-    drawStars();
+    if (canvas && ctx) {
+      window.addEventListener("resize", resizeCanvas, { passive: true });
+      resizeCanvas();
+      drawStars();
+    } else {
+      console.error("Chronosphear star canvas could not start.");
+    }
 
     // STAFF SKIN VIEWERS
     // Uses skinview3d and the local skin PNGs stored in this repository.
