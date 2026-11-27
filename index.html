@@ -480,9 +480,9 @@
 
     .staff-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 25px;
-      max-width: 800px;
+      max-width: 1100px;
       margin: auto;
     }
 
@@ -1041,6 +1041,12 @@
             <h3>flamedragon2</h3>
             <span class="staff-role">CO-OWNER</span>
           </article>
+
+          <article class="staff-card reveal">
+            <div class="skin-container" id="tristian-assend-skin"></div>
+            <h3>Tristian_Assend</h3>
+            <span class="staff-role">CO-DEVELOPER</span>
+          </article>
         </div>
       </div>
     </section>
@@ -1448,6 +1454,7 @@
     function startStaffPreviews() {
       createSkinViewer("x-cole-x-skin", "https://textures.minecraft.net/texture/6e0fadd46163ff17a1c215480a7c91432a5c4a64ef5799119c1a4ac15002f2d2", "X_Cole_X");
       createSkinViewer("flamedragon2-skin", "https://mc-heads.net/skin/flamedragon2", "flamedragon2");
+      createSkinViewer("tristian-assend-skin", "https://textures.minecraft.net/texture/ba4358b328bbd8e163bb8703154af873cfbfb2524b6335fd9969007d66d42593", "Tristian_Assend");
     }
 
     if (document.readyState === "loading") {
